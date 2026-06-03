@@ -36,19 +36,19 @@ Layer 3 — 数据产物 schema（写入前 Read）
 ## 状态机（TODO 视角）
 
 ```
-            ┌── (放弃) ──┐
-            ↓            ↓
-[创建] ──→ ⚪ todo ──→ 🟡 in_progress ──→ 🟢 done
-                                ↓
-                            ⚫ abandoned
+[创建] ──→ ⚪ todo  ⇄  ⏸️ on_hold ──→ 🟡 in_progress ──→ 🟢 done
+              └──────────┴────────────────┴──────────→ ⚫ abandoned
 ```
 
 **门槛：**
 
 - `todo → in_progress`：AC（验收条件）必须已写齐
 - `in_progress → done`：AC 全部勾完 + 验证通过（lint / test / 端到端）
+- `→ on_hold`（搁置）：有 DoD + **复活条件**（不要求 AC）；`in_progress` 遇阻也可退回搁置
 
 AC 是"可勾选清单"，DoD 是"一句话目标态"。两者都要写但用途不同（详见 todo-create SKILL）。
+
+**`on_hold`（搁置）**="已成形但现在不具备条件"——既非可拾取的 `todo`，也非 `abandoned`。它单列**搁置表**移出可拾取池；进它必须写**原因 + 复活条件**，否则回 EXP 或 abandon。`abandoned` / `on_hold` 在索引都要填**原因列**。
 
 ---
 
@@ -126,19 +126,19 @@ AI：
 
 ### 状态 emoji
 
-| domain | ⚪ | 🟡 | 🟢 | ⚫ |
-|---|---|---|---|---|
-| TODO | 未开始 | 进行中 | 完成 | 放弃 |
-| PRD | draft | ready | shipped | archived |
-| EXP | seed | exploring | promoted | dropped |
+| domain | ⚪ | 🟡 | ⏸️ | 🟢 | ⚫ |
+|---|---|---|---|---|---|
+| TODO | 未开始 | 进行中 | 搁置 | 完成 | 放弃 |
+| PRD | draft | ready | —— | shipped | archived |
+| EXP | seed | exploring | —— | promoted | dropped |
 
 ### index.md 列序（钉死禁改）
 
-| domain | 活跃表 | 归档表 |
-|---|---|---|
-| TODO | 编号 / 标题 / 状态 / 添加 / 优先级 / 依赖 | + 完成 + 备注 |
-| PRD | 编号 / 标题 / 状态 / 添加 / 澄清(R) / 关联 TODO | + 完成 + 备注 |
-| EXP | 编号 / 标题 / 状态 / 添加 / 下一步 | + 完成 + 备注 |
+| domain | 活跃表 | 搁置表（仅 TODO） | 归档表 |
+|---|---|---|---|
+| TODO | 编号 / 标题 / 状态 / 添加 / 优先级 / 依赖 | 编号 / 标题 / 状态 / 添加 / **原因(含复活条件)** | + 完成 + **原因** |
+| PRD | 编号 / 标题 / 状态 / 添加 / 澄清(R) / 关联 TODO | —— | + 完成 + 备注 |
+| EXP | 编号 / 标题 / 状态 / 添加 / 下一步 | —— | + 完成 + 备注 |
 
 详细列格式见各 domain 的 `README.md`。
 
@@ -148,7 +148,9 @@ AI：
 
 - ❌ AI 自动 git commit（等用户说）
 - ❌ index.md frontmatter 存 count（手算 = bug 工厂）
-- ❌ 把 done/abandoned 留在活跃表
+- ❌ 把 on_hold 留在活跃表（进搁置表）；把 done/abandoned 留在活跃表（进归档表）
+- ❌ 搁置 / 放弃不写原因（index 原因列空着）
+- ❌ on_hold 没有复活条件（那是软放弃——回 EXP 或老实 abandon）
 - ❌ 5 分钟修复也开 TODO（直接做 + commit）
 - ❌ 状态跳级（todo → done 必须经过 in_progress）
 - ❌ AC 没勾完标 done（"差不多了"不算）
