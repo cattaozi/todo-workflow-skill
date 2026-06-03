@@ -8,7 +8,11 @@ type: todo
 
 > 状态：⚪ 未开始 · 🟡 进行中 · ⏸️ 搁置 · 🟢 完成 · ⚫ 放弃
 > 操作规则：创建走 [`../skill/todo-create/SKILL.md`](../skill/todo-create/SKILL.md)；推进走 [`../skill/todo-progress/SKILL.md`](../skill/todo-progress/SKILL.md)。
-> 注：分组依据见本目录 README §分组约定。
+> 注：分组依据见本目录 README §分组约定；专项（Epic）见 README §专项约定。
+
+## 专项（Epic）
+
+（暂无）
 
 ## 活跃项
 
