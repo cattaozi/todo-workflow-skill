@@ -16,7 +16,7 @@
 PRD_<3位数字>_<英文短描述（连字符）>.md
 ```
 
-- 例：`PRD_001_mvp.md`、`PRD_002_family_calendar.md`
+- 例：`PRD_001_mvp.md`、`PRD_002_user_dashboard.md`
 - 编号永不复用
 
 ## PRD 详情文件格式
