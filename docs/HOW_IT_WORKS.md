@@ -1,0 +1,164 @@
+# todo-workflow 是怎么工作的
+
+读这篇，给你 5 分钟搞明白整套工作流的运转。**给人看，也给新接手的 AI 看。**
+
+---
+
+## 三层加载模型
+
+工作流的所有"规则"和"产物"分三层加载，避免 AI 上下文爆炸：
+
+```
+Layer 1 — 真常驻（每次请求自动注入）
+└── CLAUDE.md
+    └── @.workflow/skill/bootstrap/SKILL.md   ← Claude Code 的 @ 导入
+
+Layer 2 — 按意图 Read（bootstrap 路由表指挥）
+├── todo-create/SKILL.md         ← 用户说"加 TODO"才 Read
+├── todo-progress/SKILL.md        ← 用户说"做 #NN" 才 Read
+├── prd-review/SKILL.md           ← review PRD 才 Read
+└── explore/SKILL.md              ← "我有个想法" 才 Read
+
+Layer 3 — 数据产物 schema（写入前 Read）
+├── todo/README.md               ← 改 todo/index.md 前 Read
+├── prd/README.md
+└── explore/README.md
+```
+
+**为什么这样分层？**
+
+- Layer 1 永远在 = AI 进来就知道"有套路"
+- Layer 2 按需 = 不污染上下文（你只问状态时不用读 100K 的 SOP）
+- Layer 3 写前读 = 防止 AI 凭记忆把 index 写成不同形态
+
+---
+
+## 状态机（TODO 视角）
+
+```
+            ┌── (放弃) ──┐
+            ↓            ↓
+[创建] ──→ ⚪ todo ──→ 🟡 in_progress ──→ 🟢 done
+                                ↓
+                            ⚫ abandoned
+```
+
+**门槛：**
+
+- `todo → in_progress`：AC（验收条件）必须已写齐
+- `in_progress → done`：AC 全部勾完 + 验证通过（lint / test / 端到端）
+
+AC 是"可勾选清单"，DoD 是"一句话目标态"。两者都要写但用途不同（详见 todo-create SKILL）。
+
+---
+
+## 一个 TODO 的完整生命周期（示例）
+
+### 1. 创建
+
+用户："加个 TODO：用户登录"
+
+AI（按 todo-create SOP）：
+- 检查粒度（0.5-2 天能干完？）
+- 分配编号（如 #042，永不复用）
+- Read `todo/README.md` 看 index 怎么写
+- 创建 `TODO_042_user_login.md`（含背景 / 任务 / DoD，AC 可暂留 TBD）
+- 在 `todo/index.md` 活跃表加一行
+
+### 2. 推进
+
+用户："做 #042"
+
+AI（按 todo-progress SOP）：
+- 检查 AC 是否已写（没写 → 拒绝开始，让 PM 补 AC）
+- 改 frontmatter `status: in_progress` + index 状态列 🟡
+- 真做事（写代码 / 改 schema / 加测试）
+
+### 3. 完成
+
+用户："#042 做完了"
+
+AI：
+- 核对 AC 全部勾完？没勾完 → 拒绝标 done
+- 跑验证 checklist（lint / test / 重启服务等）
+- 改 frontmatter `status: done`
+- 移到 index.md 归档表（含完成日期 + 备注）
+- **不自动 commit**（等用户拍板）
+
+---
+
+## 文件位置对照
+
+```
+.workflow/
+├── README.md              ← 工作流总入口（人 + AI）
+├── EVOLUTION.md           ← 方法论沉淀 + 演进日志
+├── skill/                 ← SOP（5 个 Skill folder）
+│   ├── bootstrap/SKILL.md         ← 启动协议 + 意图路由
+│   ├── todo-create/SKILL.md       ← 创建 TODO
+│   ├── todo-create/TEMPLATE.md    ← TODO 文件模板
+│   ├── todo-progress/SKILL.md     ← 推进 TODO 状态
+│   ├── prd-review/SKILL.md        ← PRD 工程 review
+│   └── explore/SKILL.md           ← 预研推进
+├── todo/
+│   ├── README.md          ← todo/index.md schema 定义
+│   ├── index.md           ← 全部 TODO 汇总
+│   └── TODO_NNN_*.md      ← 单条 TODO（按需）
+├── prd/                   ← 同上结构
+└── explore/               ← 同上结构
+```
+
+---
+
+## 关键约定
+
+### 编号
+
+- TODO 用 `#NNN`（3 位数字）
+- PRD 用 `PRD_NNN`
+- EXP 用 `EXP_NNN`
+- **永不复用**（done / abandoned 都保留原号；新建是最大已用 + 1）
+
+### 日期
+
+- ISO 风格 `MM-DD`（年隐含）；跨年时改 `YYYY-MM-DD`
+- **不要** `2026.06.03` 这种点号格式（容易跟版本号混）
+
+### 状态 emoji
+
+| domain | ⚪ | 🟡 | 🟢 | ⚫ |
+|---|---|---|---|---|
+| TODO | 未开始 | 进行中 | 完成 | 放弃 |
+| PRD | draft | ready | shipped | archived |
+| EXP | seed | exploring | promoted | dropped |
+
+### index.md 列序（钉死禁改）
+
+| domain | 活跃表 | 归档表 |
+|---|---|---|
+| TODO | 编号 / 标题 / 状态 / 添加 / 优先级 / 依赖 | + 完成 + 备注 |
+| PRD | 编号 / 标题 / 状态 / 添加 / 澄清(R) / 关联 TODO | + 完成 + 备注 |
+| EXP | 编号 / 标题 / 状态 / 添加 / 下一步 | + 完成 + 备注 |
+
+详细列格式见各 domain 的 `README.md`。
+
+---
+
+## 红线（永远不要）
+
+- ❌ AI 自动 git commit（等用户说）
+- ❌ index.md frontmatter 存 count（手算 = bug 工厂）
+- ❌ 把 done/abandoned 留在活跃表
+- ❌ 5 分钟修复也开 TODO（直接做 + commit）
+- ❌ 状态跳级（todo → done 必须经过 in_progress）
+- ❌ AC 没勾完标 done（"差不多了"不算）
+- ❌ 「工作量大」当借口（详见 PHILOSOPHY）
+
+---
+
+## 进阶
+
+- **interrupt 处理**（中途冒出新任务）：见 bootstrap §中途冒出新任务
+- **EXP promote** 到 TODO/PRD：见 explore SKILL
+- **PRD review 找澄清项**：见 prd-review SKILL
+- **演进工作流本身**：在 `EVOLUTION.md` 加一条记录

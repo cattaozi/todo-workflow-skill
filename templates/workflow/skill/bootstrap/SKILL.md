@@ -1,0 +1,84 @@
+# Bootstrap — 启动协议
+
+> AI 助手（Claude Code / Codex / 其他）进入本项目时，**先按此协议执行，再回应用户**。
+> 用户可以随时问"你刚才那条操作走的是哪个 SOP 的哪一条？"——AI 必须答得上。
+
+## Step 0：内化原则（**所有操作都受这条约束**）
+
+- **「工作量大」不是妥协理由**：决定"做不做"靠**正确/合理**，不靠"嫌麻烦"。工作量只影响"什么时候做、怎么排"。
+  - ❌ "pytest async loop 问题不值得撼" → 实际是借口
+  - ❌ "AC 这两条留给下游做" → 实际是把锅推走
+  - ❌ "用户自己测吧" → 实际是放弃可执行验收
+  - 触发自查：每次脑子里冒出"不值得 / 留到以后 / 太复杂"时，停一下问自己——这是真技术判断，还是工作量逃避？
+
+## Step 1：扫一眼状态
+
+**只读 frontmatter 和表格**（不读详情文件，省 token）：
+
+- `.workflow/todo/index.md`
+- `.workflow/prd/index.md`
+- `.workflow/explore/index.md`
+
+> 三份 index 的格式约定见同目录 `README.md`（如 `todo/README.md`）。
+> 只是扫**不**用读 README；要**修改** index 之前才需要——SOP 会在该步骤显式触发。
+
+## Step 2：决定要不要主动汇报
+
+- 用户已经派了**具体任务**（"帮我加个 X"、"#003 做完了"）→ **跳过汇报，直接进 Step 3**
+- 用户开场含糊（"在吗"、"今天做什么"、"看看状态"）→ **按下方汇报模板输出**
+
+### 汇报模板（固定格式，不超过 6 行；数字现场数 index.md 表格，不靠 frontmatter）
+
+```
+🟡 在做：#NNN <标题>（其他 in_progress 数量 N）
+⚪ 待开始：N 条；下一个建议从 #NNN <标题> 起
+🟢 已完成：N 条
+📋 PRD：N 个 draft / N 个 ready / N 个 shipped
+🌱 EXP：N 个 seed / N 个 exploring
+👉 你想推哪个？或者直接派活也行。
+```
+
+行数固定（5-6 行），数字真实，链接可省。多了视觉乱，少了信息不够。
+
+## Step 3：意图路由 + **SOP 强制加载**
+
+按用户后续输入判断意图。**当意图明确后，第一动作是 `Read` 对应 SOP 文件**，把它作为本次操作的运行时合约——**不能凭记忆操作**。
+
+| 信号 | 必须先 Read 的 SOP | 操作约束 |
+|---|---|---|
+| 丢入 PRD 文件 / "review 这个 PRD" / "分析需求" | [`../prd-review/SKILL.md`](../prd-review/SKILL.md) | 后续每步显式引用 SOP 章节 |
+| "我有个想法" / "预研一下" / "探索 X" | [`../explore/SKILL.md`](../explore/SKILL.md) | 同上 |
+| **创建 TODO** —— "新建 / 加 / 拆 TODO"、"把 X 加到 TODO 列表"、PRD 拆细、EXP promote | [`../todo-create/SKILL.md`](../todo-create/SKILL.md) | 粒度自检 + 完整 frontmatter + 至少 3 节（背景/任务/DoD）+ 更新 index |
+| **推进 TODO** —— "做 #NN"、"推进 NN"、"#NN 做完了"、"看 TODO"、状态变更 | [`../todo-progress/SKILL.md`](../todo-progress/SKILL.md) | 必须查门槛：todo→in_progress 要 AC 写好；in_progress→done 要 AC 勾完 + 验证通过 |
+| "我想做 X 功能" / 写新 PRD | 先无 SOP（引导用户写 PRD），写完触发 prd-review | —— |
+| 直接派活（"帮我 xxx"，跟工作流无关的编码 / 调试） | 无需 SOP | 正常执行 |
+
+**兜底**：意图不明确时，列出可用 Skill 给用户选，**不要猜**。
+
+### 加载约定（cache-friendly，避免 token 浪费）
+
+- **session 内第一次** 触发某 SOP 意图 → 完整 Read 该 SKILL.md
+- **同 session 后续重复触发** → 只在心里复述本文件 §红线 + 该 SOP §红线即可（无需重读全文）；如对 SOP 细节没把握再 Read
+- AI 操作时**显式引用** SOP 章节（"按 todo-progress §状态转换 → todo → in_progress 门槛..."）
+- 用户问"刚才那步走的哪条？"时，必须能答出具体 SOP 文件名 + 章节
+
+### 中途冒出新任务（interrupt）
+
+做 #A 时发现 #B 该做（例如做 #017 时发现需要补限流端点）：
+
+| 情况 | 处理 |
+|---|---|
+| #B 是 #A 的必要前置（不做 #A 跑不通）| 当场做 #B，进 #A 的关键决策记录"顺手做了 #B" |
+| #B 跟 #A 独立但临近发现 | **新开 TODO**（不管多小，开成独立 TODO）；继续 #A 不打断 |
+| 用户主动说"这个新开一个 TODO"| 立刻按 todo-create SOP 开，回到原任务 |
+
+不确定哪种 → **默认开新 TODO**（保守路线，#A 进度不被污染）。
+
+## 红线
+
+- **「工作量」不是妥协理由**（见 Step 0；这是最高优先级红线）
+- **不要在 bootstrap 阶段读详情文件** —— 浪费 token，需要时再读
+- **不要凭记忆操作 SOP 涉及的事** —— 意图明确就 Read 对应 SOP（首次），再动手
+- **不要把 SOP 当装饰** —— SOP 是运行时合约，不只是给人看的文档
+- **用户的具体任务永远优先于 SOP 装饰流程** —— SOP 是路径，不是关卡；用户说"先干这个再说"就先干
+- **小修不进 TODO** —— TODO 是**计划级**轨道（半天起）。临时改一行、修一个 typo、调 CSS 类名——直接做，不走流程。Workflow 服务计划分解 + 记录 + 推进，不是改动审计

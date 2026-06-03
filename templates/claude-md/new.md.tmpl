@@ -1,0 +1,106 @@
+# CLAUDE.md
+
+本文件是 Claude Code（和其他 AI 编码助手）在本仓库工作时的操作手册。
+
+> **启动协议**：下方通过 `@` 导入的 bootstrap 内容是本 session 的运行时合约。
+> 进入项目时按 bootstrap 协议扫一眼当前 TODO / 预研状态，再回应用户。
+> 具体任务优先于汇报。
+
+@.workflow/skill/bootstrap/SKILL.md
+
+> 上面被 `@` 内联的 bootstrap 由 Claude Code 自动注入到每次请求的上下文。
+> 不依赖 AI 主动 `Read` 工具调用；新 session 也常驻。
+> 其它 Skill（todo-create / todo-progress / prd-review / explore）按需 Read，**不**用 `@` 导入。
+
+## 项目简介
+
+**{{PROJECT_NAME}}** —— {{PROJECT_TAGLINE}}
+
+{{PROJECT_DESCRIPTION}}
+
+## 技术选型
+
+{{TECH_STACK_BLOCK}}
+
+## 开发流程
+
+### 启动开发环境
+
+```bash
+{{DEV_COMMANDS}}
+```
+
+### 依赖管理
+
+{{DEPENDENCY_NOTES}}
+
+## Git 工作流
+
+**用户没说"提交"之前，绝不自动 `git commit`。** 这是红线。
+
+### Commit 触发时机
+
+用户明确说"提交" / "commit" / "打个 commit" 才动手。完成一组 TODO 后**不要**自作主张提交——等指令。
+
+### Commit message 模板（固定格式）
+
+```
+<type>(<scope>): <一句话概括，含 TODO 编号>
+
+## <段落 1，通常按主题分组>
+
+- 关键产出 1
+- 关键产出 2
+
+## 验证
+
+- {{VERIFY_CHECKLIST_HINT}}
+
+Co-Authored-By: <coauthor info if applicable>
+```
+
+**字段约定：**
+
+- `<type>` —— `feat` / `fix` / `chore` / `refactor` / `docs`，不混用
+- `<scope>` —— 模块名或 `phase-X`
+- 标题 ≤ 70 字符
+- body 必含 TODO 编号清单（`#016 #017`），方便 `git log --grep="#016"` 定位
+- 关键决策在 body 写一段，**不要光列文件名**
+
+### Commit 粒度
+
+- **一组 TODO 一个 commit**
+- 撤销 / 反悔类独立 commit 不混
+- **永远不 force push 到 main**
+
+### Stage 文件
+
+- 用具体路径 `git add path/...`，**不要** `git add -A`（容易卷进 `.env` 等敏感文件）
+- 含方括号的路径（如 Next.js 的 `[slug]` `[id]`）**必须用引号**，否则 zsh glob 静默失败
+- stage 完用 `git status --short` 复核敏感文件没误入
+
+### 不要做的事
+
+- ❌ 自动 push 到 remote（push 也要等用户说）
+- ❌ amend 已 push 的 commit
+- ❌ 跳 pre-commit hook（`--no-verify`）
+- ❌ 提交 `.env` / 构建产物 / `__pycache__/` 等
+
+## 编码约定
+
+### 通用
+
+- **所有配置走环境变量**，禁止硬编码
+- **不依赖宿主机绝对路径**
+- **不要打开生产部署相关的实现**（Dockerfile / CI / systemd），未明确请求前不要新增
+
+{{LANGUAGE_SPECIFIC_CONVENTIONS}}
+
+## 与 AI 助手协作的约定
+
+- **优先编辑现有文件**，不要无故新建文档 / 脚本
+- **不写无用注释**：代码做什么由命名和结构表达；只在 *为什么* 不显然时加一行注释
+- **修复 bug 不附带"顺手重构"**，保持改动聚焦
+- 涉及架构 / 选型 / 部署的变更，先确认再动手
+
+> 工作流细节（TODO / PRD / EXP / Skill 体系）见 [`.workflow/README.md`](.workflow/README.md)。bootstrap 已在文件顶部通过 `@` 内联，不重复说明。
