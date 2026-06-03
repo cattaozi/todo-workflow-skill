@@ -24,6 +24,7 @@
 11. **小修不进 TODO**——TODO 是计划级（半天起）。改 typo / 调 padding → 直接做 + commit。
 12. **Skill Read 要 cache-friendly**——session 内同一 SOP 第一次 Read 全文，后续靠红线段心理复述。
 13. **数据产物的 schema 要写下来，不能现编**——index.md 类型产物必须有同目录 README.md 定义结构。AI 写入前 Read schema；纯读不用。
+14. **"我在管什么"是工作流的一等公民**——工作区项目拓扑（`projects.md`）是个有 schema 的 config 槽，和 todo/prd/explore 域平级：工作流拥有「槽位 + schema + bootstrap 读它」的规矩，项目只填内容。它与 `CLAUDE.md`（怎么干活）、bootstrap（按什么流程）三者正交，所以拓扑不该耦合进 CLAUDE.md。
 
 ---
 

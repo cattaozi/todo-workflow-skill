@@ -13,12 +13,14 @@
 
 ## Step 1：扫一眼状态
 
-**只读 frontmatter 和表格**（不读详情文件，省 token）：
+**先认拓扑，再扫三域 index**（只读 frontmatter 和表格，不读详情文件，省 token）：
 
+- `.workflow/projects.md` —— 我在管哪些项目 / 仓库（不存在就跳过：单仓项目可能没建）
 - `.workflow/todo/index.md`
 - `.workflow/prd/index.md`
 - `.workflow/explore/index.md`
 
+> `projects.md` 回答"我在管什么"，是 prd-review / todo-* 判定仓库边界、验证命令落点的依据。
 > 三份 index 的格式约定见同目录 `README.md`（如 `todo/README.md`）。
 > 只是扫**不**用读 README；要**修改** index 之前才需要——SOP 会在该步骤显式触发。
 

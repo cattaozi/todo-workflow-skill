@@ -6,6 +6,7 @@
 
 | 目录 / 文件 | 内容 |
 |---|---|
+| [`projects.md`](projects.md) | **工作区项目拓扑**——管了哪些项目/仓库及各自角色、仓库边界。config/data（每工作区独有），bootstrap 启动读它定位；单仓项目可省 |
 | [`prd/`](prd/index.md) | 产品需求文档（你自己写，工程的你 review）—— 子目录 [`README.md`](prd/README.md) 定义 `index.md` schema |
 | [`todo/`](todo/index.md) | 行动项 —— 子目录 [`README.md`](todo/README.md) 定义 `index.md` schema |
 | [`explore/`](explore/index.md) | 灵感池 / 预研 —— 子目录 [`README.md`](explore/README.md) 定义 `index.md` schema |

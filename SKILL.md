@@ -13,7 +13,7 @@ description: |
 
 把一套"文件驱动的产品/工程管理工作流"克隆到当前项目。完成后项目拥有：
 
-- `.workflow/` 目录（SOP / 索引 / 模板 / 历史日志）
+- `.workflow/` 目录（SOP / 索引 / 模板 / 项目拓扑 / 历史日志）
 - `CLAUDE.md`（或 `AGENTS.md`）配置好 bootstrap `@` 注入
 
 未来任何 AI 进入项目，bootstrap 自动注入，按工作流走，**不再依赖 AI 自律**。
@@ -55,10 +55,10 @@ SOP 是**路径**不是**关卡**。用户说"先干这个再说"就先干，不
 
 **不要 grep 整个代码库**，只看根目录元数据。
 
-### Step 2: 跟用户确认 4 个问题（一次性问完）
+### Step 2: 跟用户确认 5 个问题（一次性问完）
 
 ```
-我准备克隆 todo-workflow 到当前项目，先确认 4 件事：
+我准备克隆 todo-workflow 到当前项目，先确认 5 件事：
 
 1. 【项目一句话简介】这个项目是做什么的？
    （例："家庭网站 × AI 试验田"、"内部数据 ETL"、"开源 OAuth library"）
@@ -71,13 +71,16 @@ SOP 是**路径**不是**关卡**。用户说"先干这个再说"就先干，不
    (b) 工具/库项目  → **只带 TODO**（精简）
    (c) 研究/试验项目 → **带 EXP，不带 PRD**
 
-4. 【CLAUDE.md 处理】我探查到：<已存在 / 不存在>
+4. 【工作区项目拓扑】这个工作区管着哪些项目 / 仓库？各自什么角色？
+   （单仓项目 → 就它自己，一行即可；多仓工作台 → 列出如"前端仓 / 后端仓 / SDK / 原型·真相源"）
+
+5. 【CLAUDE.md 处理】我探查到：<已存在 / 不存在>
    如已存在：(a) 在末尾追加工作流段落 / (b) 备份后重写
 
 我会等你回答后再开始动手。
 ```
 
-**注意**：4 件事一件不能少；不要假设答案默默执行。
+**注意**：5 件事一件不能少；不要假设答案默默执行。
 
 ### Step 3: 生成 `.workflow/` 文件
 
@@ -90,6 +93,7 @@ SOP 是**路径**不是**关卡**。用户说"先干这个再说"就先干，不
 |---|---|---|
 | 所有 | `.workflow/README.md` | `templates/workflow/README.md` |
 | 所有 | `.workflow/EVOLUTION.md` | `templates/workflow/EVOLUTION.md` |
+| 所有 | `.workflow/projects.md` | `templates/workflow/projects.md` |
 | 所有 | `.workflow/skill/bootstrap/SKILL.md` | `templates/workflow/skill/bootstrap/SKILL.md` |
 | 所有 | `.workflow/skill/todo-create/SKILL.md` | `templates/workflow/skill/todo-create/SKILL.md` |
 | 所有 | `.workflow/skill/todo-create/TEMPLATE.md` | `templates/workflow/skill/todo-create/TEMPLATE.md` |
@@ -106,6 +110,8 @@ SOP 是**路径**不是**关卡**。用户说"先干这个再说"就先干，不
 **工具/库项目**：跳过所有 PRD / EXP 行。`.workflow/README.md` 中提到 PRD/EXP 的内容也要相应注释或删除（**或保留作为提示**——告知"未来要不要带"）。
 
 > **不要" cherry pick "改 SKILL 内容**——所有 Skill 文件原样复制。后续用户自己改是项目演化的事。
+>
+> **唯一例外：`projects.md` 要填充内容**（其它 `.workflow/` 文件都原样复制）。复制后把 `{{PROJECTS_TABLE}}` 换成 Step 2 第 4 题的项目清单：一项目一行，按文件内 schema 列序（项目 \| 角色 \| 一句话职责 \| 技术栈 \| 仓库边界）。单仓项目填一行即可。
 
 ### Step 4: CLAUDE.md / AGENTS.md 处理
 
@@ -153,6 +159,9 @@ grep "todo/README.md" .workflow/skill/todo-progress/SKILL.md
 
 # 4. CLAUDE.md / AGENTS.md 含 @ 注入
 grep "@.workflow/skill/bootstrap" CLAUDE.md   # 或 AGENTS.md
+
+# 5. projects.md 占位已替换（不能残留 {{ }}）
+grep -q "{{" .workflow/projects.md && echo "⚠️ projects.md 占位未填充" || echo "projects.md OK"
 ```
 
 任何一条不通 → 修复后再下一步。**不要因为"差不多了"放过**（这是 §灵魂 #3）。
@@ -190,6 +199,7 @@ grep "@.workflow/skill/bootstrap" CLAUDE.md   # 或 AGENTS.md
 ## 文档入口
 
 - `.workflow/README.md` —— 工作流总入口
+- `.workflow/projects.md` —— 工作区管哪些项目（bootstrap 启动读它定位）
 - `.workflow/EVOLUTION.md` —— 方法论沉淀
 - 各 `<domain>/README.md` —— index.md schema
 ```
