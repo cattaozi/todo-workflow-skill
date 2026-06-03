@@ -7,14 +7,14 @@
 ---
 id: NN
 title: "<标题>"
-status: todo
+status: todo            # todo | in_progress | on_hold | done | abandoned
 added: "YYYY-MM-DD"
 completed: null         # done / abandoned 时填日期
 prd: "PRD_001"          # 可选，从哪个 PRD 拆来
 explore: "EXP_001"      # 可选，从哪个预研转来
 phase: "A"              # 可选，phase 归属
 priority: P0            # 可选：P0 | P1 | P2
-note: "一句话当前进展"
+note: "一句话当前进展"   # on_hold / abandoned 时 = 原因（搁置含复活条件）
 ---
 
 # TODO #NN — <标题>

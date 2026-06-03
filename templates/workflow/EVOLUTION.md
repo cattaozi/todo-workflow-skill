@@ -25,6 +25,7 @@
 12. **Skill Read 要 cache-friendly**——session 内同一 SOP 第一次 Read 全文，后续靠红线段心理复述。
 13. **数据产物的 schema 要写下来，不能现编**——index.md 类型产物必须有同目录 README.md 定义结构。AI 写入前 Read schema；纯读不用。
 14. **"我在管什么"是工作流的一等公民**——工作区项目拓扑（`projects.md`）是个有 schema 的 config 槽，和 todo/prd/explore 域平级：工作流拥有「槽位 + schema + bootstrap 读它」的规矩，项目只填内容。它与 `CLAUDE.md`（怎么干活）、bootstrap（按什么流程）三者正交，所以拓扑不该耦合进 CLAUDE.md。
+15. **`on_hold`（搁置）是独立状态，但要带护栏**——"已成形、但现在不具备条件"既不是可拾取的 `todo`，也不是 `abandoned`。它的价值是**把项移出可拾取池**（单列搁置表）。两道护栏防它变垃圾场：① 进 `on_hold` 必须有 DoD + **复活条件**（说不出"等什么"就回 EXP 或 abandon）；② 搁置 / 放弃必须在 index **原因列**写清理由——原因列空着不算合法状态。这条源自 Agent OS 实战自发长出的搁置区。
 
 ---
 

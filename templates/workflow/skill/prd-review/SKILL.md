@@ -52,8 +52,9 @@ related_todo: "#NN, #MM"
 
 ### Step 4：拆 TODO
 
-- 没阻塞 → 新建 TODO，frontmatter 标 `prd: "PRD_NNN"`
-- 有阻塞 → TODO 标 `todo` + note "等 PRD_NNN_R00M 决策"
+- 没阻塞 → 新建 TODO（`status: todo`），frontmatter 标 `prd: "PRD_NNN"`，进活跃表
+- 硬阻塞 → 新建 TODO **直接建 `status: on_hold`**，note 写"等 PRD_NNN_R00M 决策"（= 原因 + 复活条件），进**搁置表**
+  - 前提仍是**说得出 DoD**；连完成态都说不清 → 别建 TODO，回 EXP 或留在 PRD-R 决策清单里
 
 ### Step 5：更新索引
 
