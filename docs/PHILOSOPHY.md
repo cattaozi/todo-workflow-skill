@@ -62,7 +62,7 @@
 **问题观察**：`index.md` 被多个 SOP 修改（todo-create 加行 / todo-progress 改状态），AI 每次都"现编"格式。结果：
 
 - 不同 session 列序不一样
-- 不同项目分组方式不一样
+- 不同 session 表结构写得不一样
 - 跨项目移植时各种不兼容
 
 **本工作流做法**：每个 domain 一份同目录 `README.md` 定义 schema（frontmatter / 列序 / 列格式 / 修改规则 / 不要做的事）。AI 写入前**强制 Read schema**；纯读不用。
