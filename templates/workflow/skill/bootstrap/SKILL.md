@@ -52,6 +52,7 @@
 | "我有个想法" / "预研一下" / "探索 X" | [`../explore/SKILL.md`](../explore/SKILL.md) | 同上 |
 | **创建 TODO** —— "新建 / 加 / 拆 TODO"、"把 X 加到 TODO 列表"、PRD 拆细、EXP promote | [`../todo-create/SKILL.md`](../todo-create/SKILL.md) | 粒度自检 + 完整 frontmatter + 至少 3 节（背景/任务/DoD）+ 更新 index |
 | **推进 TODO** —— "做 #NN"、"推进 NN"、"#NN 做完了"、"看 TODO"、状态变更 | [`../todo-progress/SKILL.md`](../todo-progress/SKILL.md) | 必须查门槛：todo→in_progress 要 AC 写好；in_progress→done 要 AC 勾完 + 验证通过 |
+| **推进 Epic** —— "推进 Epic：<名>"、"把 X 专项往前推" | [`../todo-progress/SKILL.md`](../todo-progress/SKILL.md) §推进整个 Epic | 按依赖序逐个推成员，**每条门槛照常**；遇阻即停报告，不硬推 |
 | "我想做 X 功能" / 写新 PRD | 先无 SOP（引导用户写 PRD），写完触发 prd-review | —— |
 | 直接派活（"帮我 xxx"，跟工作流无关的编码 / 调试） | 无需 SOP | 正常执行 |
 
