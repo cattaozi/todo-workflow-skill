@@ -6,7 +6,7 @@
 
 ## 文件位置
 
-- 索引：`.workflow/todo/index.md`（专项表 + 活跃表 + 搁置表 + 归档表）
+- 索引：`.workflow/todo/index.md`（活跃表 + 专项表 + 搁置表 + 归档表）
 - 单条详情：`.workflow/todo/TODO_NNN_<短描述>.md`
 - **结构约定**：[`../../todo/README.md`](../../todo/README.md) —— 修改 index.md 前**首次本 session** 必读，定义了列序 / 列格式 / 修改规则。不要现编。
 
