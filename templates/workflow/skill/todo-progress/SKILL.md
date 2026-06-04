@@ -66,7 +66,7 @@
 全部通过后：
 
 - 更新 frontmatter `status: done` + `completed: <YYYY-MM-DD>`
-- 移到 `index.md` 归档表（含完成日期）
+- 移到 `index.md` 归档表（含完成日期），**按 §排序规则插到正确位置**（完成日期降序，最近的在最上）——见 [`../../todo/README.md`](../../todo/README.md) §排序规则
 - 详情文件可选加 `## 关键决策`，**仅在出现非显然决策时**（比如换了选型 / 撤销了 PRD 写的方案 / 踩了非常规坑）；常规执行不需要赘述，commit message 已经记够了
 
 ### → on_hold（搁置）/ on_hold → 唤回

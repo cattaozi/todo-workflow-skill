@@ -9,7 +9,7 @@ type: todo
 > 状态：⚪ 未开始 · 🟡 进行中 · ⏸️ 搁置 · 🟢 完成 · ⚫ 放弃
 > 操作规则：创建走 [`../skill/todo-create/SKILL.md`](../skill/todo-create/SKILL.md)；推进走 [`../skill/todo-progress/SKILL.md`](../skill/todo-progress/SKILL.md)。
 > 注：专项（Epic）见本目录 README §专项约定。
-> 区段顺序（钉死）：活跃项 → 专项 → 搁置 → 归档。
+> 区段顺序（钉死）：活跃项 → 专项 → 搁置 → 归档。行内排序见 README §排序规则（归档按完成日期降序）。
 
 ## 活跃项
 
