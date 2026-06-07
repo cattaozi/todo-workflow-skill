@@ -118,6 +118,35 @@ your-project/
 
 ---
 
+## 让已落地的项目保持最新
+
+本仓库（你正在维护的这个工作区）就是**真相源，始终最新**。已经装了工作流的其它项目怎么跟上？**本地目录对比，不走远程 git。**
+
+**一次性设置**：把约定路径软链到本工作区，这样所有项目都从一个稳定路径读到你的最新版：
+
+```bash
+# 若该路径之前 clone 过（是真实目录），先删掉，否则 ln 会建到目录内部
+rm -rf ~/.claude/skills/todo-workflow
+ln -sfn /Users/liangliang/IdeaProjects/ai_project/todo-workflow-skill ~/.claude/skills/todo-workflow
+```
+
+> 之后你在本工作区改了什么，`~/.claude/skills/todo-workflow` 立刻就是最新——零同步动作。
+> （维护者用软链，不要再 clone-install；上面"安装"段的 clone 是给纯使用者的。）
+
+**升级某个项目**：在那个项目里对 AI 说一句 **"更新工作流"**（或 "update workflow" / "同步工作流"）即可——AI 按 `.workflow/README.md` §升级 执行：
+
+1. **定位本地真相源** `~/.claude/skills/todo-workflow/templates/workflow/`（只读本地，无网络）
+2. 用 `EVOLUTION.md` 的方法论编号算版本差
+3. **覆盖代码层**（所有 `README.md` + 整个 `skill/` 树），**保留数据层**（`index.md` + 带编号的 TODO/PRD/EXP 详情 + `projects.md`）
+4. 按新增的 EVOLUTION 条目迁移已有数据（如加列、加分区）
+5. **出「心智简报」**——逐条讲"变了什么 / 对你日常的影响 / 你的数据被怎么动"，并问用户是否认可，再等拍板提交
+
+> 重点不是同步文件，是**更新使用者的心智**：升级完用户得知道"从现在起怎么用得不一样"，否则这次升级等于没做。
+
+> 完整步骤与红线（**绝不用空 index 覆盖项目数据**等）见每个项目内的 `.workflow/README.md` §升级——那是给项目里的 AI 看的权威 SOP，本仓库的 [`templates/workflow/README.md`](templates/workflow/README.md) 是它的模板源。
+
+---
+
 ## 贡献
 
 发现工作流缺陷、想加新 SOP、改进模板：
