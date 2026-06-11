@@ -1,0 +1,15 @@
+{
+  "name": "todo-workflow",
+  "owner": { "name": "cattaozi" },
+  "description": "todo-workflow 工作流插件市场（含 tf 插件）",
+  "plugins": [
+    {
+      "name": "tf",
+      "source": "./",
+      "description": "文件驱动的产品/工程工作流（/tf: 命令套 + 自升级机制）",
+      "version": "1.0.0",
+      "category": "productivity",
+      "keywords": ["workflow", "todo", "prd", "sop"]
+    }
+  ]
+}

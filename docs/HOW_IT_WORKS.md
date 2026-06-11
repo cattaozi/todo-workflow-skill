@@ -9,27 +9,28 @@
 工作流的所有"规则"和"产物"分三层加载，避免 AI 上下文爆炸：
 
 ```
-Layer 1 — 真常驻（每次请求自动注入）
+Layer 1 — 常驻（每次请求自动注入）
 └── CLAUDE.md
-    └── @.workflow/skill/bootstrap/SKILL.md   ← Claude Code 的 @ 导入
+    └── @.workflow/skill/bootstrap/SKILL.md   ← Claude Code @ 导入
 
-Layer 2 — 按意图 Read（bootstrap 路由表指挥）
-├── todo-create/SKILL.md         ← 用户说"加 TODO"才 Read
-├── todo-progress/SKILL.md        ← 用户说"做 #NN" 才 Read
-├── prd-review/SKILL.md           ← review PRD 才 Read
-└── explore/SKILL.md              ← "我有个想法" 才 Read
+Layer 2 — 操作 SOP = tf 插件技能（斜杠显式 / bootstrap 路由自然语言）
+├── /tf:todo-create     ← "加 TODO"
+├── /tf:todo-progress    ← "做 #NN"
+├── /tf:prd-review       ← review PRD
+└── /tf:explore          ← "我有个想法"
+   （住插件 skills/<名>/SKILL.md；自然语言时读 ~/.claude/skills/todo-workflow/skills/<名>/SKILL.md）
 
-Layer 3 — 数据产物 schema（写入前 Read）
-├── todo/README.md               ← 改 todo/index.md 前 Read
-├── prd/README.md
-└── explore/README.md
+Layer 3 — 数据产物 schema（写入前 Read，住项目 .workflow/）
+├── .workflow/todo/README.md      ← 改 todo/index.md 前 Read
+├── .workflow/prd/README.md
+└── .workflow/explore/README.md
 ```
 
 **为什么这样分层？**
 
 - Layer 1 永远在 = AI 进来就知道"有套路"
-- Layer 2 按需 = 不污染上下文（你只问状态时不用读 100K 的 SOP）
-- Layer 3 写前读 = 防止 AI 凭记忆把 index 写成不同形态
+- Layer 2 在插件 = 代码与数据分离，更新走 `/plugin update`；斜杠显式调或自然语言路由
+- Layer 3 写前读 = 防止 AI 凭记忆把 index 写成不同形态；schema 住项目让数据自描述
 
 ---
 
@@ -90,22 +91,25 @@ AI：
 ## 文件位置对照
 
 ```
+# 项目里（数据 + schema + bootstrap）
 .workflow/
-├── README.md              ← 工作流总入口（人 + AI）
+├── README.md              ← 工作流总入口 + 升级 SOP
 ├── EVOLUTION.md           ← 方法论沉淀 + 演进日志
-├── skill/                 ← SOP（5 个 Skill folder）
-│   ├── bootstrap/SKILL.md         ← 启动协议 + 意图路由
-│   ├── todo-create/SKILL.md       ← 创建 TODO
-│   ├── todo-create/TEMPLATE.md    ← TODO 文件模板
-│   ├── todo-progress/SKILL.md     ← 推进 TODO 状态
-│   ├── prd-review/SKILL.md        ← PRD 工程 review
-│   └── explore/SKILL.md           ← 预研推进
+├── skill/bootstrap/SKILL.md  ← 唯一住项目的 SOP（@ 注入，常驻）
 ├── todo/
 │   ├── README.md          ← todo/index.md schema 定义
 │   ├── index.md           ← 全部 TODO 汇总
 │   └── TODO_NNN_*.md      ← 单条 TODO（按需）
 ├── prd/                   ← 同上结构
 └── explore/               ← 同上结构
+
+# tf 插件里（操作 SOP，通过 /tf:* 调用，不写进项目）
+tf/skills/
+├── init/ · status/ · update/         ← 生命周期命令
+├── todo-create/SKILL.md + TEMPLATE.md
+├── todo-progress/SKILL.md
+├── prd-review/SKILL.md
+└── explore/SKILL.md
 ```
 
 ---
