@@ -2,7 +2,6 @@
   "name": "tf",
   "displayName": "todo-workflow (tf)",
   "description": "文件驱动的产品/工程工作流：TODO / PRD / EXP / SOP + 自升级机制。斜杠命令前缀 /tf:。Use when: 'set up workflow', 'init workflow', '搭建工作流', '克隆工作流'.",
-  "version": "1.0.0",
   "author": { "name": "cattaozi" },
   "homepage": "https://github.com/cattaozi/todo-workflow-skill",
   "repository": "https://github.com/cattaozi/todo-workflow-skill",
