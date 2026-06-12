@@ -82,7 +82,7 @@ grep -q "{{" .workflow/projects.md && echo "⚠️ projects.md 占位未填" || 
 - **不凭记忆操作工作流** —— 交给 `/tf:*` 技能，按它的门槛走
 - **用户具体任务优先于流程装饰** —— SOP 是路径不是关卡
 - **小修不进 TODO** —— 改 typo / 调 CSS 直接做 + commit；TODO 是计划级（半天起）
-- **不自动 commit** —— 完成只改文件，git commit 永远等用户拍板
+- **不自动 commit、不自动 push** —— 平时只改文件；用户说"收工/提交"才提交（仅当下这轮），push 永远等用户。多仓库的提交编排见 `/tf:todo-progress` §收工
 ````
 
 ## `.workflow/todo/index.md`
