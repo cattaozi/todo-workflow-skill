@@ -74,7 +74,7 @@ grep -q "{{" .workflow/projects.md && echo "⚠️ projects.md 占位未填" || 
 
 ## Step 3：工作流操作 → 走 `/tf:*` 技能
 
-创建 TODO、推进/关闭 TODO、review PRD、预研、升级——交给对应 `/tf:*` 技能（自然语言自动触发，也可斜杠）。**各技能自带门槛**（AC 不齐不开工、AC 没勾完+验证没过不准 done、搁置/放弃必写原因等），bootstrap 不重复。意图不明 → 列 `/tf:*` 让用户选，不要猜。
+创建 TODO、推进/关闭 TODO、写/review PRD、预研、升级——交给对应 `/tf:*` 技能（自然语言自动触发，也可斜杠）。**各技能自带门槛**（AC 不齐不开工、AC 没勾完+验证没过不准 done、搁置/放弃必写原因等），bootstrap 不重复。意图不明 → 列 `/tf:*` 让用户选，不要猜。
 
 ## 红线
 
@@ -179,7 +179,7 @@ type: explore
 **流程（SOP）不在这里**——它们是 `tf` 插件的 `/tf:*` 技能。
 
 - 看状态：`/tf:status`　建 TODO：`/tf:todo-create`　推进：`/tf:todo-progress`
-- review PRD：`/tf:prd-review`　预研：`/tf:explore`　升级：`/tf:update`
+- 写 PRD：`/tf:prd-create`　review PRD：`/tf:prd-review`　预研：`/tf:explore`　升级：`/tf:update`
 - 自然语言（"加个 TODO"）也会自动触发对应技能。
 
 > 工作流代码升级走 `/plugin update tf`；本目录数据的迁移走 `/tf:update`。
@@ -197,5 +197,5 @@ type: explore
 
 @.workflow/skill/bootstrap/SKILL.md
 
-> 工作流操作是 `tf` 插件的 `/tf:*` 技能（todo-create / todo-progress / prd-review / explore / status / update），自然语言会自动触发，也可斜杠显式调。`.workflow/` 只存数据。
+> 工作流操作是 `tf` 插件的 `/tf:*` 技能（todo-create / todo-progress / prd-create / prd-review / explore / status / update），自然语言会自动触发，也可斜杠显式调。`.workflow/` 只存数据。
 ````

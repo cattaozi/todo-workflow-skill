@@ -35,6 +35,7 @@
 | `/tf:status` | 看当前在做什么 / 待办 / PRD / EXP 概览 |
 | `/tf:todo-create` | 建一个 TODO（带粒度自检、DoD/AC 门槛） |
 | `/tf:todo-progress` | 推进 / 关闭 TODO（AC 没勾完 + 验证没过不准 done） |
+| `/tf:prd-create` | 把"有空白、没理清"的需求拷问 + 结构化成 PRD 草稿 |
 | `/tf:prd-review` | 以工程视角 review PRD、找澄清项、拆 TODO |
 | `/tf:explore` | 把半生不熟的想法登记为预研（EXP） |
 | `/tf:update` | 把项目里的 `.workflow/` 对齐到最新工作流 |
