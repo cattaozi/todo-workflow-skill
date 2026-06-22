@@ -18,39 +18,43 @@ argument-hint: "[想法一句话，或 EXP 编号]"
 | `promoted` | 成熟了，转 TODO 或 PRD |
 | `dropped` | 想清楚了不做，记原因 |
 
-## 流程
+## 登记 EXP（动作）
 
-### Step 1：结构化
+> 按统一骨架读：**触发 → 门槛 → 状态写入 → index 迁移 → 必填项**（与 `/tf:todo-create`、`/tf:todo-progress` 各动作同构）。
 
-创建 `.workflow/explore/EXP_NNN_<短描述>.md`：
+- **触发**：用户说"我有个想法 / 预研一下 / 探索 X / 能不能用 X 做"。
+- **门槛**：无——灵感池就是低门槛入口（但别把 seed 直接当 TODO 做，见 §红线）。
+- **状态写入**：新建 `EXP_NNN_<短描述>.md`（编号 3 位，**永不复用**），frontmatter `status: seed` + 正文六段：**背景 / 起源**、**核心想法**（一句话）、**价值假设**、**风险与未知**、**下一步**。
+- **index 迁移**：按 §索引格式·修改规则，活跃表加行。不要现编。
+- **必填项**：扫 `.workflow/prd/index.md` 与 `.workflow/todo/index.md`，**标关联、避免重复**。
 
-```yaml
----
-id: NNN
-title: "xxx"
-status: seed
-added: "YYYY-MM-DD"
-promoted_to: null
-note: "一句话当前状态"
----
-```
+## 推进 EXP（状态转换）
 
-正文段落：**背景 / 起源** / **核心想法**（一句话）/ **价值假设** / **风险与未知** / **下一步**。
+> 用户说"推进 EXP #N"进入。每个动作仍按上面五栏骨架读。
 
-### Step 2：关联
+### seed → exploring（开始调研）
 
-扫 `.workflow/prd/index.md` 和 `.workflow/todo/index.md`，避免重复，标关联。
+- **触发**：用户要深入这条 EXP。
+- **门槛**：无。
+- **状态写入**：frontmatter `status: exploring`；文档追加调研记录 / 链接 / 代码片段。
+- **index 迁移**：状态列 → 🟡（留活跃表）。
+- **必填项**：无。
 
-### Step 3：归位
+### → promoted（转 TODO / PRD）
 
-- 存入 `.workflow/explore/`（编号 3 位，永不复用）
-- 更新 `.workflow/explore/index.md` —— 按本技能 §索引格式 写，不要现编。
+- **触发**：想法成熟、能说清要做什么。
+- **门槛**：小功能 → 转 TODO（走 `/tf:todo-create`）；大功能 → 转 PRD。
+- **状态写入**：frontmatter `status: promoted` + `promoted_to: "TODO #NN"` / `"PRD_NNN"`。
+- **index 迁移**：删活跃行、归档表加行，备注写 `promoted_to`。
+- **必填项**：`promoted_to` 已填。
 
-## 推进
+### → dropped（想清不做）
 
-- 用户说"推进 EXP #N" → 在文档里追加调研记录、链接、代码片段
-- 成熟后：小功能 → 转 TODO（`/tf:todo-create`，status `promoted` + `promoted_to: "TODO #NN"`）；大功能 → 转 PRD（status `promoted` + `promoted_to: "PRD_NNN"`）
-- 想清楚不做 → status `dropped` + note 写原因
+- **触发**：想清楚了不做。
+- **门槛**：无。
+- **状态写入**：frontmatter `status: dropped` + `note` 写原因。
+- **index 迁移**：归档表加行（⚫）。
+- **必填项**：备注 / 原因已填。
 
 ## 红线
 
