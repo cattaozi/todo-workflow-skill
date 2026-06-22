@@ -6,7 +6,7 @@ argument-hint: "[PRD 文件路径或 PRD 编号]"
 
 # /tf:prd-review — PRD 工程 review SOP
 
-> 单人项目里，PM 的你写完 PRD，工程的你 review。目的：在动键盘前找出 PRD 里说不清楚 / 跟现状矛盾 / 实现成本被低估的地方。
+> 单人项目里，PM 的你写完 PRD，工程的你 review。目的：在动键盘前找出 PRD 里说不清楚 / 跟现状矛盾 / 实现成本被低估的地方。配对：`/tf:prd-create`（撰写侧）。
 > 用户输入：$ARGUMENTS。前置：当前项目**没有 `.workflow/`** → 提示先 `/tf:init`；项目**没有 PRD 域**（工具/库项目）→ 告知未启用 PRD，停。
 
 ## 流程
