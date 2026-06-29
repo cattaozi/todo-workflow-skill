@@ -22,6 +22,7 @@
 
 > 通则：有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。
 > 间是 **build-on-mount**：挂第一个项目时按上面布局现建，不预造空壳。
+> **仓库边界（三层、逐层 gitignore 下一层）**：壳仓只版本化壳自己（gitignore 整个 `projects/`）→ 间仓 `projects/<slug>/` 自己版本化 canon/账本（gitignore `code/`）→ 码仓 `code/` 是你的代码。**账本归间的仓管，壳不沾项目数据。**
 
 ## 我怎么记
 

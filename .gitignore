@@ -8,7 +8,8 @@ node_modules/
 __pycache__/
 *.pyc
 
-# tf3：每个项目「间」projects/<slug>/ 里，代码放 code/（独立 repo / 软链）不进 tf3 仓；间里 tf3 的数据（canon / 账本）要留
-projects/*/code/
+# tf3：壳只版本化"tf3 这个人"。每个项目「间」projects/<slug>/ 是独立 git 仓、自己版本化自己的 canon/账本（间里 code/ 再嵌套一层被管码的 repo）。壳不收编任何间——只留 .gitkeep 当挂载点
+projects/*
+!projects/.gitkeep
 # tf3 的口：room 是从账本渲染出来的汇报，不入 git
 room/
