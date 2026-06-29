@@ -8,7 +8,7 @@ node_modules/
 __pycache__/
 *.pyc
 
-# tf3：被管的码（projects/ 下每个子目录是独立 repo）不进 tf3 仓——但 projects/canon.md（我的建模）要留
-projects/*/
+# tf3：每个项目「间」projects/<slug>/ 里，代码放 code/（独立 repo / 软链）不进 tf3 仓；间里 tf3 的数据（canon / 账本）要留
+projects/*/code/
 # tf3 的口：room 是从账本渲染出来的汇报，不入 git
 room/
