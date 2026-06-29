@@ -27,20 +27,20 @@ tf3 是个工作台，你打开它、把要做的项目挂进 `projects/`：
 
 ## 身体（目录即器官）
 
+分**壳 / 间**两层——根目录是 tf3 这个"人"（与项目无关、可复制开新实例），每个被管项目是 `projects/` 下一个自包含的「间」：
+
 ```
-tf3/
+tf3/                       ← 壳：tf3 这个"人"
 ├── SOUL.md / CLAUDE.md / AGENTS.md   魂 + 两扇门
-├── skills/          方法（管家与开发的 playbook：todo / prd / explore / capture）
-├── projects/
-│   ├── canon.md     它对各项目的理解（git 锚，旧了追 delta）
-│   └── <repo>/      被管的码（独立 repo，gitignored）
-├── todo/            散户小事账本（小事一行）
-├── epic/<slug>/     一件大事一间房（index 台账 + README 叙事 + 成员）
-├── prd/ · explore/  PRD / 预研账本
-├── inbox/           你扔料的落点，它来归类
-├── lesson/          坑与教训
-├── room/            它的口——从账本渲染的汇报（只给你看）
-└── EVOLUTION.md     它自己的设计史 + 自我精简纪律
+├── EVOLUTION.md           它的设计史 + 自我精简纪律
+├── skills/                方法（todo / prd / explore / capture）
+├── inbox/                 你扔料的总入口，它路由到对应的间
+└── projects/
+    └── <slug>/            ← 间：一个被管项目的全部
+        ├── code/          被管的码（独立 repo / 软链，gitignored）
+        ├── canon.md       它对这项目的建模（git 锚，旧了追 delta）
+        ├── todo/ epic/<slug>/ prd/ explore/   账本
+        └── room/ lesson/ log/                  口 / 坑 / 过程
 ```
 
 通则：**有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。**
