@@ -13,39 +13,39 @@
 
 姿态是**配合**：默认应着你走，主动只在"你要求"或"合作需要吭一声"时破例——**绝不**给个指令就哗啦啦做完、甩你一个成品。决定永远是你的。
 
-人格写在 [`SOUL.md`](SOUL.md)，那是它的灵魂；怎么运作在 [`CLAUDE.md`](CLAUDE.md)。
+人格写在 [`SOUL.md`](SOUL.md)，那是它的灵魂；能力集写在 [`ABILITY.md`](ABILITY.md)，让它知道自己会什么；怎么运作在 [`CLAUDE.md`](CLAUDE.md)。
 
 ## 怎么用
 
-tf3 是个工作台，你打开它、把要做的项目挂进 `projects/`：
+tf3 是个工作台，你打开它、把要管的外部目录软链进 `projects/links/`：
 
 1. 打开 tf3（Claude Code / Codex 都行——`CLAUDE.md` / `AGENTS.md` 两扇门唤醒同一个魂）。
-2. 把你的代码仓放 / 软链到 `projects/<repo>/`（独立 git，不进 tf3 仓）。
-3. 直接说要干什么。它先读 `projects/canon.md`（它对项目的建模）+ 扫账本，然后配合你。
+2. 让它把你的代码仓、资料目录或项目目录软链到 `projects/links/`。
+3. 直接说要干什么。它先读 `projects/canon.md`（它对外部资源的记忆本）+ 扫账本，然后配合你。
 
 你只做三件事：**扔料、说要干什么、对递上来的拍板。**
 
 ## 身体（目录即器官）
 
-分**壳 / 间**两层——根目录是 tf3 这个"人"（与项目无关、可复制开新实例），每个被管项目是 `projects/` 下一个自包含的「间」：
+分**壳 / 工作间**两层——根目录是 tf3 这个"人"（与项目无关、可复制开新实例），`projects/` 是运行时生成的工作间：
 
 ```
 tf3/                       ← 壳：tf3 这个"人"
 ├── SOUL.md / CLAUDE.md / AGENTS.md   魂 + 两扇门
+├── ABILITY.md             能力集：会什么、什么时候想起、缺能力怎么补
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
-├── skills/                方法（todo / prd / explore / capture）
-├── inbox/                 你扔料的总入口，它路由到对应的间
+├── skills/                方法（project / todo / prd / explore）
 └── projects/
-    └── <slug>/            ← 间：一个被管项目的全部
-        ├── code/          被管的码（独立 repo / 软链，gitignored）
-        ├── canon.md       它对这项目的建模（git 锚，旧了追 delta）
-        ├── todo/ epic/<slug>/ prd/ explore/   账本
-        └── room/ lesson/ log/                  口 / 坑 / 过程
+    ├── inbox/             你扔料的临时落点
+    ├── links/             外部资源软链区
+    ├── canon.md           它对外部资源的记忆本
+    ├── todo/ epic/ prd/ explore/   账本
+    └── room/ lesson/ log/          口 / 坑 / 过程
 ```
 
 通则：**有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。**
 
-仓库边界：**壳仓不收编任何项目数据**（`projects/` 整个 gitignored）；每个间是**独立 git 仓**、自己版本化自己的账本，间里 `code/` 再嵌套一层你代码的 repo。壳干净可复制，账本各归各间的仓。
+仓库边界：**壳仓不收编任何工作间数据**（`projects/` 整个 gitignored，只保留 `.gitkeep`）。`projects/` 是运行时动态生成与维护的工作间；`links/` 只放软链，外部资源由它自己的仓库或文件系统管理。
 
 ## 和"工具"的区别
 
