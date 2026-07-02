@@ -7,7 +7,7 @@
 - **EXP**：一次围绕明确未知的问题调研。
 - **输入**：用户给的想法、问题、方向、技术选型、需求苗头或外部材料。
 - **调研问题**：这次调研必须回答的问题。
-- **证据**：来自 `projects/links/`、`projects/canon.md`、账本、官方文档、源码、小实验或搜索结果的材料。
+- **证据**：来自 `projects/links/`、`projects/memory.md`、账本、官方文档、源码、小实验或搜索结果的材料。
 - **结论**：转 PRD、转 TODO、继续调研或放弃。
 - **index**：`explore/index.md`，只记录 EXP 状态、下一步和备注。
 
@@ -18,7 +18,7 @@
 1. **是否需要调研**：如果已经是清楚的产品功能，走 `skills/prd.md`；如果已经是明确工程任务，走 `skills/todo.md`。
 2. **未知是什么**：把输入改写成一个或多个调研问题。
 3. **方向是否发散**：如果存在多个研究方向、评价标准或调研深度，先列出方向和代价，让你拍板。
-4. **已有资料在哪**：先看 `projects/canon.md`、`projects/links/`、`prd/`、`todo/`，避免重复调研。
+4. **已有资料在哪**：先看 `projects/memory.md`、`projects/links/`、`prd/`、`todo/`，避免重复调研。
 5. **能否自行推进**：能查资料、读代码、做实验就自行推进；缺权限、账号、环境时说明缺口。
 6. **进入对应动作**：创建 EXP、调研、形成结论、转出。
 
@@ -53,7 +53,7 @@ concluded → dropped
 2. 创建 `explore/EXP_NNN.md`。
 3. 把用户输入改写成调研问题。
 4. 如果调研方向不止一个，先写出候选方向、取舍代价和我的建议，等你确认后再进入系统调研。
-5. 扫 `prd/`、`todo/`、`projects/canon.md`，记录关联，避免重复。
+5. 扫 `prd/`、`todo/`、`projects/memory.md`，记录关联，避免重复。
 6. 写入 `explore/index.md` 活跃表：编号、标题、状态 `seed`、下一步、备注。
 
 EXP 文件结构：
@@ -89,7 +89,7 @@ note:
 
 1. 状态改为 `researching`，index 状态改为 🟡。
 2. 确认当前调研方向已经与你对齐；没有对齐就先停下澄清。
-3. 先读本地材料：`projects/canon.md`、`projects/links/`、相关 PRD、TODO、lesson。
+3. 先读本地材料：`projects/memory.md`、`projects/links/`、相关 PRD、TODO、lesson。
 4. 需要外部资料时，优先查官方文档、标准文档、论文、权威机构、公司正式公告。
 5. 需要验证时，做最小实验；实验只回答调研问题，不扩展成实现。
 6. 把证据、实验和限制写入 EXP 文件。

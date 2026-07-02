@@ -24,7 +24,7 @@
 
 - 不替代 `todo / prd / explore` 的具体推进规则。
 - 不定义 `todo / epic / prd / explore` 的账本字段和表结构。
-- 不把 `canon.md` 扩展成独立工作流。
+- 不把 `memory.md` 扩展成独立工作流。
 - 不规定外部项目怎么写代码、测试、构建或部署。
 - 不把 `projects/` 生成物提交进 tf3 壳仓。
 
@@ -33,7 +33,7 @@
 ```text
 projects/
 ├── .gitignore
-├── canon.md
+├── memory.md
 ├── inbox/
 ├── links/
 │   ├── app-a -> <外部目录 A>
@@ -53,7 +53,7 @@ projects/
 
 - `links/`：外部资源软链区；用户提供多个目录地址时，统一软链到这里。
 - `inbox/`：用户扔料的临时落点；归类后清空，不当长期仓库。
-- `canon.md`：我对 `links/` 下外部资源的记忆本；只记录代码里查不到、用户告诉过、或需要长期记住的人话信息。
+- `memory.md`：我对 `links/` 下外部资源的记忆本；只记录代码里查不到、用户告诉过、或需要长期记住的人话信息。
 - `todo/`：散户 TODO 账本目录；具体格式由 `skills/todo.md` 定义。
 - `epic/`：Epic 账本目录；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
@@ -66,7 +66,7 @@ projects/
 
 `project` 只负责编排初始化，不拥有各入口文件的内容格式。生成入口文件前，先读对应真相源：
 
-- `canon.md`：本文件定义初始空壳；后续只写代码里查不到、用户告诉过、或需要长期记住的信息。
+- `memory.md`：本文件定义初始空壳；后续只写代码里查不到、用户告诉过、或需要长期记住的信息。
 - `todo/index.md`：读 `skills/todo.md`。
 - `epic/index.md`：读 `skills/todo.md`。
 - `prd/index.md`：读 `skills/prd.md`。
@@ -74,9 +74,9 @@ projects/
 
 对应 skill 改了格式，初始化时跟随对应 skill；不在本文件复制字段。
 
-### `canon.md` 记录什么
+### `memory.md` 记录什么
 
-`canon.md` 是工作间的记忆本。它记录：
+`memory.md` 是工作间的记忆本。它记录：
 
 - tf3 管了哪些外部资源。
 - 每个资源在人话层面是什么。
@@ -84,10 +84,10 @@ projects/
 - 你告诉过 tf3 的背景、偏好、约束、历史决定。
 - tf3 对这些项目的开放想法，但必须标明不是事实。
 
-### `canon.md` 初始结构
+### `memory.md` 初始结构
 
 ```md
-# Canon
+# Memory
 
 ## 外部资源
 
@@ -120,8 +120,8 @@ room/
 .DS_Store
 ```
 
-4. 创建 `canon.md` 空壳。
-5. 按“入口文件内容来源”创建 `canon.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
+4. 创建 `memory.md` 空壳。
+5. 按“入口文件内容来源”创建 `memory.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
 6. 若工作间还不是 git 仓，询问是否初始化为独立 git 仓。
 
 ### 软链引入外部目录
@@ -164,8 +164,8 @@ room/
 ## 红线
 
 - 壳仓只收 tf3 自己，不收任何 `projects/` 生成物。
-- 若工作间启用独立 git，工作间仓只版本化 canon 和账本，不收 `links/` 和 `room/`。
+- 若工作间启用独立 git，工作间仓只版本化 `memory.md` 和账本，不收 `links/` 和 `room/`。
 - 外部资源由它自己的仓库或文件系统管理，不混入 tf3 账本仓。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
 - 不在本文件复制任何账本字段；字段变化只改对应 skill。
-- `canon.md` 不记录能从外部资源中重新读取或推理出来的代码结构。
+- `memory.md` 不记录能从外部资源中重新读取或推理出来的代码结构。
