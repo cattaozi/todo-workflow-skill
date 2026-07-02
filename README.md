@@ -21,7 +21,7 @@ tf3 是个工作台，你打开它、把要管的外部目录软链进 `projects
 
 1. 打开 tf3（Claude Code / Codex 都行——`CLAUDE.md` / `AGENTS.md` 两扇门唤醒同一个魂）。
 2. 让它把你的代码仓、资料目录或项目目录软链到 `projects/links/`。
-3. 直接说要干什么。它先读 `projects/canon.md`（它对外部资源的记忆本）+ 扫账本，然后配合你。
+3. 直接说要干什么。它先读 `projects/memory.md`（它对外部资源的记忆本）；需要状态时再按需查账本。
 
 你只做三件事：**扔料、说要干什么、对递上来的拍板。**
 
@@ -38,7 +38,7 @@ tf3/                       ← 壳：tf3 这个"人"
 └── projects/
     ├── inbox/             你扔料的临时落点
     ├── links/             外部资源软链区
-    ├── canon.md           它对外部资源的记忆本
+    ├── memory.md          它对外部资源的记忆本
     ├── todo/ epic/ prd/ explore/   账本
     └── room/ lesson/ log/          口 / 坑 / 过程
 ```
