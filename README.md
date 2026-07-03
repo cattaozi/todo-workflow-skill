@@ -33,6 +33,7 @@ luca 是个工作台，你打开它、把要管的外部目录软链进 `project
 luca/                       ← 壳：luca 这个"人"
 ├── SOUL.md / CLAUDE.md / AGENTS.md   魂 + 两扇门
 ├── ABILITY.md             能力集：会什么、什么时候想起、缺能力怎么补
+├── PROPOSALS.md           待拍板的本体成长建议
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
 ├── skills/                方法（project / todo / prd / explore）
 └── projects/

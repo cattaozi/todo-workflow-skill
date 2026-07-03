@@ -59,7 +59,7 @@ projects/
 - `epic/`：Epic 账本目录；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
 - `explore/`：想法和预研账本目录；具体格式由 `skills/explore.md` 定义。
-- `lesson/`：踩坑记录，一坑一条。
+- `lesson/`：防复发规则库；只记录触发场景、坑、根因、下次怎么避和来源链接。
 - `log/`：过程草稿和临时沉淀。
 - `room/`：从账本渲染出的汇报，只给你看，我不读回。
 
