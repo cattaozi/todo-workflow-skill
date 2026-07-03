@@ -1,6 +1,6 @@
 # skills/project —— 我怎么初始化工作间和挂载外部资源
 
-> `projects/` 是 luca 的工作间：放一套账本和记忆。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编工作间账本数据，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
+> `projects/` 是 luca 的工作间：放一套账本、记忆和用户原始材料。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编工作间数据；工作间默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
 
 ## 什么时候读我
 
@@ -9,6 +9,7 @@
 - 第一次把一组外部目录交给 luca 管。
 - 需要把多个文件目录地址软链引入。
 - `projects/` 缺失、结构不完整或边界不清。
+- `projects/` 已存在但还不是独立 git 仓。
 - 需要判断某个文件属于壳仓、工作间，还是外部资源。
 - 需要创建、修正、解释工作间结构。
 
@@ -16,6 +17,7 @@
 
 - 定义引入项目时生成的最小工作间结构。
 - 创建工作间目录和入口文件。
+- 初始化 `projects/` 自己的本地 git 仓。
 - 将用户提供的外部目录软链到 `projects/links/`。
 - 从外部目录的 README、脚本和配置里识别功能、启动方式、停止方式，并写入 `memory.md`。
 - 维护三层边界：壳仓、工作间、外部资源。
@@ -48,7 +50,7 @@ projects/
 └── room/
 ```
 
-这些文件和目录都在引入外部资源时动态生成，不属于 luca 壳仓资产；壳仓只保留 `projects/.gitkeep` 作为挂载点，同时让 `projects/links/` 保持可发现。
+这些文件和目录都在引入外部资源时动态生成，不属于 luca 壳仓资产；壳仓只保留 `projects/.gitkeep` 作为挂载点。工作间默认初始化为独立本地 git 仓，用来查看、提交和回滚账本变化，同时让 `projects/links/` 保持可发现。
 
 职责：
 
@@ -153,6 +155,24 @@ projects/
 
 ## 动作协议
 
+### 本地仓触发
+
+我在三种情况下把 `projects/` 变成独立本地 git 仓：
+
+- 你明确说“把工作间变成本地仓 / 初始化 projects git / 管一下 projects 的变化”。
+- 第一次引入外部资源并创建工作间时。
+- 我发现 `projects/` 已经有账本、记忆或 `inbox/`，但 `git -C projects rev-parse --show-toplevel` 指向壳仓或失败。
+
+触发后直接执行，不需要反复确认；除非你明确说不要本地版本管理。
+
+动作：
+
+1. 确认当前目录是 luca 壳仓，且目标是 `projects/`。
+2. 确保 `projects/.gitignore` 存在，并忽略 `links/`、`room/`、`log/`、`.gitkeep` 和系统临时文件。
+3. 执行 `git -C projects init`。
+4. 执行 `git -C projects status --short --branch`，向你报告这是工作间仓，不是 luca 壳仓。
+5. 不自动提交；只有你要求“提交工作间 / commit projects”时，才在 `projects/` 内提交。
+
 ### 初始化工作间
 
 1. 若 `projects/` 已存在，先审计结构并只补缺失项；不存在再创建生成结构。
@@ -162,12 +182,16 @@ projects/
 ```gitignore
 links/
 room/
+log/
+.gitkeep
 .DS_Store
 ```
 
 4. 创建 `memory.md` 空壳。
 5. 按“入口文件内容来源”创建 `memory.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
-6. 若工作间还不是 git 仓，询问是否初始化为独立 git 仓。
+6. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
+7. 工作间 git 默认只本地管理，不自动加 remote、不自动 push。
+8. 初始化完成后，报告壳仓和工作间仓的边界，以及工作间当前 git 状态。
 
 ### 软链引入外部目录
 
@@ -215,7 +239,8 @@ room/
 
 - 壳仓只收 luca 自己，不收工作间账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 若工作间启用独立 git，工作间仓只版本化 `memory.md` 和账本，不收 `links/` 和 `room/`。
+- 工作间默认启用独立本地 git，版本化 `memory.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/` 和 `lesson/`；不收 `links/`、`room/` 和 `log/`。
+- 工作间仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
 - 不在本文件复制任何账本字段；字段变化只改对应 skill。
