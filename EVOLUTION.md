@@ -60,7 +60,7 @@
 **结构性动作**：
 - **抽魂开门**：`SOUL.md`（人格）+ `CLAUDE.md` / `AGENTS.md`（薄门 `@import`）。一个魂、多扇门。
 - **账本**：散户 `todo/` 扁平、大事 `epic/<slug>/` 成节点（index 台账 + README 叙事 + 成员嵌套）；TODO 全局编号、散户与 epic 共用、**编号是身份 / 文件夹是归属 / 换房不换号**。
-- **记忆**：`projects/memory.md`，记录 `projects/links/` 指向资源的名称、功能、启停方式、用户告诉我的事、我的想法和未确定项。
+- **记忆**：`projects/memory.md`，记录 `projects/links/` 指向资源的名称、功能、启停方式、用户给出的长期信息、我的想法和未确定项。
 - **口**：`room/`（从账本渲染汇报，只给人看）。
 - **skills**：重铸成 flat playbook（`todo` / `prd` / `explore` / `project`），扔掉插件壳和状态机机器、留判断；砍掉 `coding`（出定位），把输入接收与分流降为 `ABILITY.md` 里的习惯。
 
