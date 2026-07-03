@@ -8,6 +8,16 @@ node_modules/
 __pycache__/
 *.pyc
 
-# tf3：壳只版本化"tf3 这个人"。projects/ 是运行时工作间，动态生成与维护；壳不收编工作间数据，只留 .gitkeep 当挂载点。
-projects/*
+# luca：壳只版本化"luca 这个人"。
+# 工作间账本是运行时数据，不进壳仓；links/ 是外部仓入口，需要保持可发现，方便 IDE / Git 识别外部 VCS Root。
+projects/.gitignore
+projects/memory.md
+projects/inbox/
+projects/todo/
+projects/epic/
+projects/prd/
+projects/explore/
+projects/lesson/
+projects/log/
+projects/room/
 !projects/.gitkeep
