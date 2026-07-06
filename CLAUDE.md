@@ -45,6 +45,8 @@ projects/
 ├── README.md
 ├── inbox/
 ├── links/
+├── scripts/
+│   └── dev-services.sh  # 有本地长期服务时生成
 ├── todo/
 ├── epic/
 ├── prd/
@@ -59,6 +61,7 @@ projects/
 - `README.md`：项目域总览，记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件。
 - `links/`：外部资源软链区，可以是源码仓、资料目录或其它项目目录。
+- `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
 - `todo/`、`epic/`、`prd/`、`explore/`：任务、需求和调研账本。
 - `memory/`：长期经验与防复发记忆。
 - `log/`：我生成的过程草稿和临时沉淀，收尾时要蒸馏或清掉。
@@ -76,6 +79,7 @@ projects/
 - 壳仓只收 luca 本体，不收 `projects/` 项目域数据。
 - `projects/` 项目域版本化账本、记忆和用户原始材料。
 - `projects/links/` 是外部资源入口，保持可发现，方便 IDE / Git 识别外部 VCS Root。
+- `projects/scripts/` 是项目域资产，由 `projects/` 本地仓管理；启动文件可以操作外部服务，但不属于外部资源代码。
 - 外部资源由它自己的仓库或文件系统管理；项目域只链接，不复制、不收编。
 
 ## §2 · 记忆与沉淀
@@ -85,6 +89,7 @@ projects/
 | 内容 | 落点 |
 |---|---|
 | 外部资源、人话理解、服务定义、协作约定、待确认事项 | `projects/README.md` |
+| 本地服务启动文件 | `projects/scripts/dev-services.sh` |
 | 用户给的原始文件、会议纪要、截图说明、长文本、路径说明 | `projects/inbox/` |
 | TODO / Epic / PRD / EXP 的状态、依赖、验收、结论、去向 | 对应账本和详情文件 |
 | 可复发经验、踩坑预防、下次怎么避 | `projects/memory/` |
@@ -223,7 +228,7 @@ projects/
 收尾检查：
 
 - 动过的 TODO / Epic / PRD / EXP 状态是否已更新。
-- 外部资源背景、服务定义、约束或协作约定是否应写入 `projects/README.md`。
+- 外部资源背景、服务定义、启动文件入口、约束或协作约定是否应写入 `projects/README.md`。
 - 可复发经验是否应写入 `projects/memory/README.md`。
 - 原始材料是否应保留到 `inbox/`。
 - 还有哪些待确认事项。

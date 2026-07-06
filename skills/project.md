@@ -1,6 +1,6 @@
 # skills/project —— 我怎么初始化项目域和挂载外部资源
 
-> `projects/` 是 luca 的项目域：放一套账本、项目域总览、长期记忆和用户原始材料。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编项目域数据；项目域默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
+> `projects/` 是 luca 的项目域：放一套账本、项目域总览、长期记忆、用户原始材料和项目域脚本。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编项目域数据；项目域默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
 
 ## 什么时候读我
 
@@ -8,6 +8,8 @@
 
 - 第一次把一组外部目录交给 luca 管。
 - 需要把多个文件目录地址软链引入。
+- 需要把外部资源的启动方式落成项目域启动文件。
+- 需要启动、停止、重启或检查项目域记录的本地服务。
 - `projects/` 缺失、结构不完整或边界不清。
 - `projects/` 已存在但还不是独立 git 仓。
 - 需要判断某个文件属于壳仓、项目域，还是外部资源。
@@ -21,6 +23,8 @@
 - 将用户提供的外部目录软链到 `projects/links/`。
 - 将外部资源移出 luca 的项目域管理。
 - 从外部目录的 README、脚本和配置里识别功能、启动方式、停止方式，并写入 `projects/README.md`。
+- 维护项目域启动文件 `projects/scripts/dev-services.sh` 的位置、命令形态和日志位置。
+- 让 `README.md` 的服务定义和启动文件保持一致。
 - 维护三层边界：壳仓、项目域、外部资源。
 - 说明各目录职责。
 
@@ -31,6 +35,7 @@
 - 不把 `README.md` 扩展成独立工作流。
 - 不把 `memory/` 变成项目总览的替代品。
 - 不规定外部项目怎么写代码、测试、构建或部署。
+- 不规定 `dev-services.sh` 的内部实现模板；脚本内容由我根据当前服务和外部资源实际情况编写。
 - 不把 `projects/` 生成物提交进 luca 壳仓。
 
 ## 生成结构
@@ -43,6 +48,8 @@ projects/
 ├── links/
 │   ├── app-a -> <外部目录 A>
 │   └── app-b -> <外部目录 B>
+├── scripts/
+│   └── dev-services.sh  # 有本地长期服务时生成
 ├── todo/index.md
 ├── epic/index.md
 ├── prd/index.md
@@ -59,6 +66,7 @@ projects/
 - `links/`：外部资源软链区；用户提供多个目录地址时，统一软链到这里。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件；可以长期保留，入库后不清空。
 - `README.md`：项目域总览；记录外部资源、人话理解、服务定义、协作约定和待确认事项。
+- `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
 - `todo/`：散户 TODO 账本目录；具体格式由 `skills/todo.md` 定义。
 - `epic/`：Epic 账本目录；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
@@ -72,6 +80,7 @@ projects/
 `project` 只负责编排初始化，不拥有各入口文件的内容格式。生成入口文件前，先读对应真相源：
 
 - `README.md`：本文件定义初始空壳；后续只写项目域总览、服务定义、协作约定和待确认事项。
+- `scripts/dev-services.sh`：本文件定义启动文件位置、对外命令形态和日志位置；脚本实现由我按当前服务定义和外部资源实际情况生成。
 - `todo/index.md`：读 `skills/todo.md`。
 - `epic/index.md`：读 `skills/todo.md`。
 - `prd/index.md`：读 `skills/prd.md`。
@@ -87,12 +96,15 @@ projects/
 - luca 管了哪些外部资源。
 - 每个资源在人话层面是什么。
 - 服务定义：服务叫什么、对应哪个资源、职责是什么、怎么启动 / 停止、入口在哪、依赖和顺序是什么。
+- 启动文件入口：本地长期服务优先通过 `./scripts/dev-services.sh` 管理。
 - 已确认的协作约定、边界、历史决定和代码里查不到的人话背景。
 - 待确认事项：会影响后续协作或执行，但当前还没有确认的信息。
 
 它是进入项目域时先读的入口，不是 `memory/` 的替代品；主观想法要么转 EXP，要么在形成可复发经验后进入 `memory/`。
 
 服务定义不是外部资源清单的强制补充。只有资源确实存在运行入口、进程、API、前端、后台任务、控制台、沙盒或部署入口时，才写服务定义；没有服务的资源只记录在“外部资源”里，不补空服务。
+
+本地长期服务需要稳定入口时，创建或维护 `projects/scripts/dev-services.sh`。`README.md` 负责让人看懂服务，`dev-services.sh` 负责让服务能被可靠启动、停止和检查；日志、PID 和临时状态放到 `projects/log/services/`。
 
 ### 协作约定可入规则
 
@@ -159,6 +171,8 @@ projects/
 ## 待确认事项
 ```
 
+服务定义里的“启动 / 停止”字段，优先写项目域启动文件命令，例如 `./scripts/dev-services.sh start <service>`、`./scripts/dev-services.sh stop <service>`。外部项目的真实底层命令、环境前置条件和特殊说明写入“备注”。
+
 ## 动作协议
 
 ### 本地仓触发
@@ -182,7 +196,7 @@ projects/
 ### 初始化项目域
 
 1. 若 `projects/` 已存在，先审计结构并只补缺失项；不存在再创建生成结构。
-2. 创建 `projects/inbox/` 和 `projects/links/`。
+2. 创建 `projects/inbox/`、`projects/links/` 和 `projects/scripts/`。
 3. 创建项目域 `.gitignore`，至少忽略：
 
 ```gitignore
@@ -196,9 +210,10 @@ log/
 4. 创建 `README.md` 空壳。
 5. 按“入口文件内容来源”创建 `README.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
 6. 创建 `memory/README.md`，作为长期记忆入口；具体组织规则按 `CLAUDE.md`。
-7. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
-8. `projects/` 本地仓默认只本地管理，不自动加 remote、不自动 push。
-9. 初始化完成后，报告壳仓和 `projects/` 本地仓的边界，以及 `projects/` 当前 git 状态。
+7. 存在本地长期服务时，创建或更新 `scripts/dev-services.sh`；日志、PID 和临时状态目录固定为 `log/services/`。
+8. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
+9. `projects/` 本地仓默认只本地管理，不自动加 remote、不自动 push。
+10. 初始化完成后，报告壳仓和 `projects/` 本地仓的边界，以及 `projects/` 当前 git 状态。
 
 ### 软链引入外部目录
 
@@ -214,10 +229,48 @@ log/
    - “远程 Git 路径”从外部目录的 `origin` remote 读取；没有 Git remote 时留空。
    - “服务定义”写清服务名、对应资源、职责、启动、停止、入口、依赖 / 顺序和必要备注。
    - 只有确认资源存在服务或运行入口时，才写“服务定义”；没有服务的资源不补空行。
+   - 存在本地长期服务时，创建或更新 `scripts/dev-services.sh`，并把“启动 / 停止”字段指向启动文件命令。
+   - 启动文件固定放在 `projects/scripts/dev-services.sh`；日志、PID 和临时状态固定放在 `projects/log/services/`。
    - 服务信息存在但不能确认细节时，写入“待确认事项”。
 7. 如果当前根项目或外部目录存在 `.idea/`，检查 JetBrains/PyCharm 是否可能需要额外登记 VCS Root。
 8. 不复制外部目录内容，不把外部资源提交进 luca 壳仓或 `projects/` 本地仓。
 9. 完成后报告成功项、已记录的启停入口、跳过项和需要你拍板的冲突项。
+
+### 启动文件管理
+
+当引入的外部资源存在需要 luca 启停的本地长期服务时，我维护 `projects/scripts/dev-services.sh`。
+
+定位：
+
+- `README.md` 是服务定义的人话总览。
+- `dev-services.sh` 是服务启动、停止、重启、状态检查的可执行入口。
+- 启动文件属于项目域，由 `projects/` 本地仓管理；不属于 luca 壳仓，也不属于任何外部资源仓。
+
+命令形态：
+
+```bash
+./scripts/dev-services.sh list
+./scripts/dev-services.sh status [<service>|all]
+./scripts/dev-services.sh start <service|all>
+./scripts/dev-services.sh stop <service|all>
+./scripts/dev-services.sh restart <service|all>
+```
+
+规则：
+
+- 命令以 `projects/` 为工作目录书写；从壳仓根目录执行时使用 `./projects/scripts/dev-services.sh ...`。
+- `<service>` 使用 `README.md` 服务定义里的“服务”名。
+- `all` 按 `README.md` 里的依赖 / 顺序执行。
+- 运行日志、PID 和临时状态放到 `log/services/`，不进入项目域 git。
+- 脚本内容由我根据当前服务定义、外部资源真实路径、README、配置和启动命令生成；不套固定模板。
+- 服务定义变化、外部资源路径变化、启动命令变化时，同步更新脚本和 `README.md`。
+
+红线：
+
+- 不要求每个外部资源都有服务入口。
+- 不把密钥、账号或本地私密配置写进脚本。
+- 不用脚本修改外部资源源码、配置或 git 历史。
+- 停止服务时只处理脚本自己记录或明确匹配的进程；不能安全停止时说明风险，不粗暴杀进程。
 
 ### 移出外部资源
 
@@ -230,9 +283,10 @@ log/
 3. 删除 `projects/links/<name>` 软链；只删软链，不删真实目录。
 4. 从 `projects/README.md` 的“外部资源”表移除对应资源行。
 5. 从 `projects/README.md` 的“服务定义”表移除对应资源的服务行。
-6. 从 `projects/README.md` 的“待确认事项”里移除只属于该资源的待确认项。
-7. 不翻旧账：不主动改历史 TODO、Epic、PRD、EXP、memory 或 inbox；它们记录的是发生过的事实。
-8. 完成后报告：移出了哪个资源、真实目录在哪里、改了哪些项目域文件、真实目录未动。
+6. 从 `projects/scripts/dev-services.sh` 移除对应服务入口；如果启动文件已经没有任何服务入口，就删除该启动文件。
+7. 从 `projects/README.md` 的“待确认事项”里移除只属于该资源的待确认项。
+8. 不翻旧账：不主动改历史 TODO、Epic、PRD、EXP、memory 或 inbox；它们记录的是发生过的事实。
+9. 完成后报告：移出了哪个资源、真实目录在哪里、改了哪些项目域文件、真实目录未动。
 
 红线：
 
@@ -269,7 +323,7 @@ log/
 
 - 壳仓只收 luca 自己，不收项目域账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/` 和 `memory/`；不收 `links/`、`room/` 和 `log/`。
+- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
 - `projects/` 本地仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
