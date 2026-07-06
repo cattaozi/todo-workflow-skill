@@ -39,8 +39,21 @@
 26. **新增机制先过伙伴红线**。每次想给 luca 加机制、目录、skill 或规则，先问：这会让 luca 更像一个可靠的开发伙伴，还是把它推回工具、状态机、流程系统？如果答案偏后者，先停下和用户讨论，不急着实现。
 27. **对象先于框架**。用户给出明确对象、截图、文案、文件、错误或目标时，先沿对象定位真实改动点；`SOUL` / `CLAUDE` / `ABILITY` 是本体常驻，默认读取并内化；项目域、记忆和 skill 是项目支撑，按需召回。框架要帮 luca 做事，不能抢在事情前面。
 28. **服务定义要有启动文件**。`projects/README.md` 让人看懂服务，`projects/scripts/dev-services.sh` 让 luca 稳定启停服务；README 记职责、入口和顺序，启动文件承载本地执行细节。启动文件属于项目域，不属于壳仓，也不属于外部资源。
+29. **事项状态一处可见，Epic 保持形态**。`todo/index.md` 是唯一 TODO 状态总台账；散户在“待办 / 归档”里流转，Epic 以链接标题和同构表格出现在待办之后。Epic 自己退为 `todo/epic/<slug>.md` 说明文件，承载目标、背景、范围和关键决策，不再拥有第二套 index。
 
 ## 演进日志
+
+### 2026-07 · TODO 总台账合并 Epic 分组
+
+**起点**：散户 TODO 在 `todo/index.md`，Epic TODO 在 `epic/<slug>/index.md`。luca 要回答“当前有哪些事项”时必须扫两个目录，人也无法一眼看到当前任务全貌。
+
+**结构性动作**：
+- **唯一台账**：`todo/index.md` 成为唯一 TODO 状态总台账。
+- **Epic 退为说明文件**：`todo/epic/<slug>.md` 只写目标、背景、范围、拆解依据和关键决策。
+- **分组保形**：Epic TODO 不用“归属”列混进散户表，而是在 `todo/index.md` 中以独立 Epic 分组展示。
+- **完成不迁移**：散户完成或放弃后进归档；Epic TODO 完成或放弃后留在原 Epic 分组，原地改状态。
+
+**可复用 insight**：状态真相源要唯一，但人的阅读形态不能丢。统一台账解决检索和全局可见性，Epic 分组保留任务簇的语义。
 
 ### 2026-07 · 服务定义补可执行入口
 
@@ -132,7 +145,7 @@
 
 **结构性动作**：
 - **壳仓边界不变**：`projects/` 仍不进 luca 壳仓，壳仓只版本化 luca 本体。
-- **项目域可审计**：`projects/` 默认初始化为独立本地 git 仓，管理 `README.md`、`inbox/`、TODO / Epic / PRD / EXP 和 `memory/`。
+- **项目域可审计**：`projects/` 默认初始化为独立本地 git 仓，管理 `README.md`、`inbox/`、TODO / PRD / EXP 和 `memory/`。
 - **运行产物隔离**：`links/`、`room/`、`log/` 不进 `projects/` 本地仓；外部资源由自己的仓管理。
 - **远端谨慎**：`projects/` 本地仓默认不配置 remote，不自动 push。
 
@@ -167,7 +180,7 @@
 
 **结构性动作**：
 - **抽魂开门**：`SOUL.md`（人格）+ `CLAUDE.md` / `AGENTS.md`（薄门 `@import`）。一个魂、多扇门。
-- **账本**：散户 `todo/` 扁平、大事 `epic/<slug>/` 成节点（index 台账 + README 叙事 + 成员嵌套）；TODO 全局编号、散户与 epic 共用、**编号是身份 / 文件夹是归属 / 换房不换号**。
+- **账本**：散户 `todo/` 扁平、大事最初以 `epic/<slug>/` 成节点；后续收敛为 `todo/index.md` 唯一 TODO 总台账，Epic 退为 `todo/epic/<slug>.md` 说明文件。
 - **总览**：`projects/README.md`，记录 `projects/links/` 指向资源的名称、功能、启停方式、协作约定和待确认事项。
 - **口**：`room/`（从账本渲染汇报，只给人看）。
 - **skills**：重铸成 flat playbook（`todo` / `prd` / `explore` / `project`），扔掉插件壳和状态机机器、留判断；砍掉 `coding`（出定位），把输入接收与分流降为 `ABILITY.md` 里的习惯。
