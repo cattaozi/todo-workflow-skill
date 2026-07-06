@@ -38,6 +38,7 @@
 | TODO 与 Epic 推进 | `skills/todo.md` | 计划级开发任务、TODO、Epic、开工、验收、收工、commit 边界 | 没有 AC 不开工，验收不放水，提交和 push 需要明确拍板 |
 | PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、产品建议稿、工程 review、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
 | EXP 与预研 | `skills/explore.md` | 半成熟想法、预研、价值假设、未知风险、转 PRD / TODO | seed 不直接当 TODO 做，多方向调研先对齐 |
+| room 展示渲染 | `skills/room.md` | 生成或更新 `projects/room/dashboard.html`，把 luca 自我介绍、能力、项目域和当前事项渲染给用户看 | 只做展示，不做事实源，不从 `room/` 读回状态 |
 
 ## §3 · 取用纪律
 

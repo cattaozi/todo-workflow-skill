@@ -35,14 +35,14 @@ luca/                       ← 壳：luca 这个"人"
 ├── ABILITY.md             能力集：会什么、什么时候想起、缺能力怎么补
 ├── PROPOSALS.md           待拍板的本体成长建议
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
-├── skills/                方法（project / todo / prd / explore）
+├── skills/                方法（project / todo / prd / explore / room）
 └── projects/
     ├── inbox/             你给它的原始材料
     ├── links/             外部资源软链区
     ├── README.md          项目域总览
     ├── todo/              TODO 总台账、详情和 Epic 说明
     ├── prd/ explore/      需求和调研账本
-    └── room/ memory/ log/          汇报 / 长期记忆 / 过程
+    └── room/ memory/ log/          dashboard 与汇报 / 长期记忆 / 过程
 ```
 
 通则：**有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。**

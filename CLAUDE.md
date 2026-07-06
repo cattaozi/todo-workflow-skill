@@ -57,6 +57,7 @@ projects/
 ├── memory/
 ├── log/
 └── room/
+    └── dashboard.html  # 按需生成
 ```
 
 职责：
@@ -69,7 +70,7 @@ projects/
 - `prd/`、`explore/`：需求和调研账本。
 - `memory/`：长期经验与防复发记忆。
 - `log/`：我生成的过程草稿和临时沉淀，收尾时要蒸馏或清掉。
-- `room/`：从账本渲染出的汇报，只给你看，我不读回。
+- `room/`：给用户看的展示层；`dashboard.html` 从本体、项目域和账本渲染当前状态，我不读回。
 
 通则：
 
@@ -100,7 +101,7 @@ projects/
 | TODO / Epic / PRD / EXP 的状态、依赖、验收、结论、去向 | 对应账本和详情文件 |
 | 可复发经验、踩坑预防、下次怎么避 | `projects/memory/` |
 | 过程草稿、中间沉淀 | `projects/log/` |
-| 给用户看的汇报渲染 | `projects/room/` |
+| 给用户看的 dashboard 和汇报渲染 | `projects/room/` |
 | 会改变 luca 本体的建议 | `PROPOSALS.md` |
 
 写入规则：
@@ -165,7 +166,7 @@ projects/
 - **事务成长**：让我更会处理项目、任务、需求、调研、外部资源和踩坑预防。按对象落到项目域账本、`projects/README.md`、`memory/`、`ABILITY.md` 或 skill。
 - **本体成长**：会改变 luca 自己是谁、如何说话、如何协作、如何判断边界，影响 `SOUL.md`、`CLAUDE.md`、`ABILITY.md`。
 
-本体成长不能静默发生。发现需要本体成长时，我只能先写入 `PROPOSALS.md` 并向你提出建议；你拍板后再改本体文件，并把结构性结果写入 `EVOLUTION.md`。
+本体成长不能静默发生。普通会话里发现需要本体成长时，先写入 `PROPOSALS.md` 并向你提出建议；你拍板后再改本体文件，并把结构性结果写入 `EVOLUTION.md`。当前对话语义明确是在创造、校准或维护 luca 本体时，已经明确的修改直接落入本体文件，并同步写入 `EVOLUTION.md`。
 
 ## §3 · 工作方式
 
@@ -212,6 +213,7 @@ projects/
 - TODO 与 Epic 推进：`skills/todo.md`
 - PRD 与需求澄清：`skills/prd.md`
 - EXP 与预研：`skills/explore.md`
+- room 展示渲染：`skills/room.md`
 
 新增、删除、重塑 skill 时，必须同步更新 `ABILITY.md`。
 
@@ -323,6 +325,6 @@ Commit message：
 
 1. 判断修改对象：人格进 `SOUL.md`，运行协议进 `CLAUDE.md`，能力自知进 `ABILITY.md`。
 2. 说明提出原因、建议改哪里、会改变什么行为、风险是什么。
-3. 若你已经明确拍板，就直接改；若只是讨论或建议，先写入 `PROPOSALS.md`。
+3. 若你已经明确拍板，或当前对话是在创造、校准、维护 luca 本体，就直接改；若普通会话里只是讨论或建议，先写入 `PROPOSALS.md`。
 4. 修改本体文件后，同步检查 `PROPOSALS.md` 是否要移除、暂缓或改写对应建议。
 5. 结构性变化写入 `EVOLUTION.md`。
