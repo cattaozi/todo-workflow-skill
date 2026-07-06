@@ -31,7 +31,7 @@
 ## 我不负责什么
 
 - 不替代 `todo / prd / explore` 的具体推进规则。
-- 不定义 `todo / epic / prd / explore` 的账本字段和表结构。
+- 不定义 `todo / prd / explore` 的账本字段和表结构。
 - 不把 `README.md` 扩展成独立工作流。
 - 不把 `memory/` 变成项目总览的替代品。
 - 不规定外部项目怎么写代码、测试、构建或部署。
@@ -50,8 +50,10 @@ projects/
 │   └── app-b -> <外部目录 B>
 ├── scripts/
 │   └── dev-services.sh  # 有本地长期服务时生成
-├── todo/index.md
-├── epic/index.md
+├── todo/
+│   ├── index.md
+│   └── epic/
+│       └── <slug>.md  # 有 Epic 时生成
 ├── prd/index.md
 ├── explore/index.md
 ├── memory/README.md
@@ -67,8 +69,7 @@ projects/
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件；可以长期保留，入库后不清空。
 - `README.md`：项目域总览；记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
-- `todo/`：散户 TODO 账本目录；具体格式由 `skills/todo.md` 定义。
-- `epic/`：Epic 账本目录；具体格式由 `skills/todo.md` 定义。
+- `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
 - `explore/`：想法和预研账本目录；具体格式由 `skills/explore.md` 定义。
 - `memory/`：长期经验与防复发记忆库；组织与召回规则由 `CLAUDE.md` 定义。
@@ -82,7 +83,7 @@ projects/
 - `README.md`：本文件定义初始空壳；后续只写项目域总览、服务定义、协作约定和待确认事项。
 - `scripts/dev-services.sh`：本文件定义启动文件位置、对外命令形态和日志位置；脚本实现由我按当前服务定义和外部资源实际情况生成。
 - `todo/index.md`：读 `skills/todo.md`。
-- `epic/index.md`：读 `skills/todo.md`。
+- `todo/epic/<slug>.md`：读 `skills/todo.md`；有 Epic 时再创建。
 - `prd/index.md`：读 `skills/prd.md`。
 - `explore/index.md`：读 `skills/explore.md`。
 - `memory/README.md`：读 `CLAUDE.md` 的“长期记忆读用闭环”。
@@ -208,7 +209,7 @@ log/
 ```
 
 4. 创建 `README.md` 空壳。
-5. 按“入口文件内容来源”创建 `README.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
+5. 按“入口文件内容来源”创建 `README.md`、`todo/index.md`、`todo/epic/`、`prd/index.md`、`explore/index.md`。
 6. 创建 `memory/README.md`，作为长期记忆入口；具体组织规则按 `CLAUDE.md`。
 7. 存在本地长期服务时，创建或更新 `scripts/dev-services.sh`；日志、PID 和临时状态目录固定为 `log/services/`。
 8. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
@@ -323,7 +324,7 @@ log/
 
 - 壳仓只收 luca 自己，不收项目域账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
+- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
 - `projects/` 本地仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。

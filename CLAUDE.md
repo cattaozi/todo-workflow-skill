@@ -48,7 +48,9 @@ projects/
 ├── scripts/
 │   └── dev-services.sh  # 有本地长期服务时生成
 ├── todo/
-├── epic/
+│   ├── index.md
+│   └── epic/
+│       └── <slug>.md  # 有 Epic 时生成
 ├── prd/
 ├── explore/
 ├── memory/
@@ -62,16 +64,17 @@ projects/
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件。
 - `links/`：外部资源软链区，可以是源码仓、资料目录或其它项目目录。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
-- `todo/`、`epic/`、`prd/`、`explore/`：任务、需求和调研账本。
+- `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件。
+- `prd/`、`explore/`：需求和调研账本。
 - `memory/`：长期经验与防复发记忆。
 - `log/`：我生成的过程草稿和临时沉淀，收尾时要蒸馏或清掉。
 - `room/`：从账本渲染出的汇报，只给你看，我不读回。
 
 通则：
 
-- 有清单的地方就有 `index.md`；有故事的节点才加 `README.md`。
-- TODO 成员编号 `TODO_NNNN` 全局、永不复用；编号是身份，文件夹是归属。
-- Epic 用 slug，不占 TODO 编号。
+- TODO 状态只看 `todo/index.md`；Epic 退为 `todo/epic/<slug>.md` 说明文件。
+- TODO 编号 `TODO_NNNN` 全局、永不复用；编号是身份，`todo/TODO_NNNN.md` 是固定详情文件。
+- Epic 用 slug，不占 TODO 编号；Epic 分组标题在 `todo/index.md` 中链接到说明文件。
 - 引入外部资源时现建项目域；不预造空壳。初始化细节见 `skills/project.md`。
 
 ### 仓库边界
