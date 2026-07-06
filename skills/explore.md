@@ -60,6 +60,7 @@ EXP index 状态 emoji：🌱 seed，🟡 researching，✅ concluded，🔁 pro
 4. 如果调研方向不止一个，先写出候选方向、取舍代价和我的建议，等你确认后再进入系统调研。
 5. 扫 `prd/`、`todo/`、`projects/README.md`，记录关联，避免重复。
 6. 写入 `explore/index.md` 活跃表：编号、标题、状态 🌱、下一步、备注。
+7. EXP 由用户原始材料生成时，先确保原件或可追溯副本进入 `inbox/`，再在 `## 来源 / Source` 中引用并写明生成依据。
 
 EXP 文件结构：
 
@@ -72,6 +73,11 @@ note:
 ---
 
 # EXP_NNN <标题>
+
+## 来源 / Source
+
+- 原始材料：
+- 生成依据：
 
 ## 输入
 
