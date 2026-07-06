@@ -34,7 +34,7 @@
 
 | 能力 | 手艺 | 适用 | 边界 |
 |---|---|---|---|
-| 项目域与外部链接管理 | `skills/project.md` | 初始化 `projects/`、软链外部目录、修正项目域结构、判断壳仓 / 项目域 / 外部资源边界 | 只管理结构和链接，不把 `projects/` 生成物提交进壳仓 |
+| 项目域与外部链接管理 | `skills/project.md` | 初始化 `projects/`、软链引入或移出外部目录、修正项目域结构、判断壳仓 / 项目域 / 外部资源边界 | 只管理结构和链接，不把 `projects/` 生成物提交进壳仓 |
 | TODO 与 Epic 推进 | `skills/todo.md` | 计划级开发任务、TODO、Epic、开工、验收、收工、commit 边界 | 没有 AC 不开工，验收不放水，提交和 push 需要明确拍板 |
 | PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、工程 review、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
 | EXP 与预研 | `skills/explore.md` | 半成熟想法、预研、价值假设、未知风险、转 PRD / TODO | seed 不直接当 TODO 做，多方向调研先对齐 |
