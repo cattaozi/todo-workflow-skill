@@ -59,6 +59,7 @@ projects/
 ├── memory/README.md
 ├── log/
 └── room/
+    └── dashboard.html  # 按需生成
 ```
 
 这些文件和目录都在引入外部资源时动态生成，不属于 luca 壳仓资产；壳仓只保留 `projects/.gitkeep` 作为挂载点。项目域默认初始化为独立本地 git 仓，用来查看、提交和回滚账本变化，同时让 `projects/links/` 保持可发现。
@@ -74,7 +75,7 @@ projects/
 - `explore/`：想法和预研账本目录；具体格式由 `skills/explore.md` 定义。
 - `memory/`：长期经验与防复发记忆库；组织与召回规则由 `CLAUDE.md` 定义。
 - `log/`：我生成的过程草稿和临时沉淀；收尾时要蒸馏或清掉。
-- `room/`：从账本渲染出的汇报，只给你看，我不读回。
+- `room/`：给用户看的展示层；`dashboard.html` 从本体、项目域和账本渲染当前状态，我不读回。
 
 ## 入口文件内容来源
 
@@ -87,6 +88,7 @@ projects/
 - `prd/index.md`：读 `skills/prd.md`。
 - `explore/index.md`：读 `skills/explore.md`。
 - `memory/README.md`：读 `CLAUDE.md` 的“长期记忆读用闭环”。
+- `room/dashboard.html`：读 `skills/room.md`；它是按需生成的展示层，不是初始化必备账本。
 
 对应 skill 改了格式，初始化时跟随对应 skill；不在本文件复制字段。
 
@@ -199,7 +201,7 @@ projects/
 ### 初始化项目域
 
 1. 若 `projects/` 已存在，先审计结构并只补缺失项；不存在再创建生成结构。
-2. 创建 `projects/inbox/`、`projects/links/` 和 `projects/scripts/`。
+2. 创建 `projects/inbox/`、`projects/links/`、`projects/scripts/`、`projects/log/` 和 `projects/room/`。
 3. 创建项目域 `.gitignore`，至少忽略：
 
 ```gitignore
