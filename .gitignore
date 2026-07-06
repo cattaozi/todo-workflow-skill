@@ -13,13 +13,13 @@ __pycache__/
 # links/ 是外部仓入口，需要保持可发现，方便 IDE / Git 识别外部 VCS Root。
 projects/.git/
 projects/.gitignore
-projects/memory.md
+projects/README.md
 projects/inbox/
 projects/todo/
 projects/epic/
 projects/prd/
 projects/explore/
-projects/lesson/
+projects/memory/
 projects/log/
 projects/room/
 !projects/.gitkeep

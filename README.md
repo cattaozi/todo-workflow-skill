@@ -21,7 +21,7 @@ luca 是个工作台，你打开它、把要管的外部目录软链进 `project
 
 1. 打开 luca（Claude Code / Codex 都行——`CLAUDE.md` / `AGENTS.md` 两扇门唤醒同一个魂）。
 2. 让它把你的代码仓、资料目录或项目目录软链到 `projects/links/`。
-3. 直接说要干什么。它先读 `projects/memory.md`（它对外部资源的记忆本）；需要状态时再按需查账本。
+3. 直接说要干什么。它先读 `projects/README.md`（工作间总览）；需要状态时再按需查账本。
 
 你只做三件事：**扔料、说要干什么、对递上来的拍板。**
 
@@ -37,11 +37,11 @@ luca/                       ← 壳：luca 这个"人"
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
 ├── skills/                方法（project / todo / prd / explore）
 └── projects/
-    ├── inbox/             你扔料的临时落点
+    ├── inbox/             你给它的原始材料
     ├── links/             外部资源软链区
-    ├── memory.md          它对外部资源的记忆本
+    ├── README.md          工作间总览
     ├── todo/ epic/ prd/ explore/   账本
-    └── room/ lesson/ log/          口 / 坑 / 过程
+    └── room/ memory/ log/          汇报 / 长期记忆 / 过程
 ```
 
 通则：**有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。**

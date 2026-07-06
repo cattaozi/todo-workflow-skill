@@ -1,6 +1,6 @@
 # skills/project —— 我怎么初始化工作间和挂载外部资源
 
-> `projects/` 是 luca 的工作间：放一套账本、记忆和用户原始材料。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编工作间数据；工作间默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
+> `projects/` 是 luca 的工作间：放一套账本、工作间总览、长期记忆和用户原始材料。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编工作间数据；工作间默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
 
 ## 什么时候读我
 
@@ -19,7 +19,7 @@
 - 创建工作间目录和入口文件。
 - 初始化 `projects/` 自己的本地 git 仓。
 - 将用户提供的外部目录软链到 `projects/links/`。
-- 从外部目录的 README、脚本和配置里识别功能、启动方式、停止方式，并写入 `memory.md`。
+- 从外部目录的 README、脚本和配置里识别功能、启动方式、停止方式，并写入 `projects/README.md`。
 - 维护三层边界：壳仓、工作间、外部资源。
 - 说明各目录职责。
 
@@ -27,7 +27,8 @@
 
 - 不替代 `todo / prd / explore` 的具体推进规则。
 - 不定义 `todo / epic / prd / explore` 的账本字段和表结构。
-- 不把 `memory.md` 扩展成独立工作流。
+- 不把 `README.md` 扩展成独立工作流。
+- 不把 `memory/` 变成项目总览的替代品。
 - 不规定外部项目怎么写代码、测试、构建或部署。
 - 不把 `projects/` 生成物提交进 luca 壳仓。
 
@@ -36,7 +37,7 @@
 ```text
 projects/
 ├── .gitignore
-├── memory.md
+├── README.md
 ├── inbox/
 ├── links/
 │   ├── app-a -> <外部目录 A>
@@ -45,7 +46,7 @@ projects/
 ├── epic/index.md
 ├── prd/index.md
 ├── explore/index.md
-├── lesson/
+├── memory/
 ├── log/
 └── room/
 ```
@@ -56,12 +57,12 @@ projects/
 
 - `links/`：外部资源软链区；用户提供多个目录地址时，统一软链到这里。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件；可以长期保留，入库后不清空。
-- `memory.md`：我对 `links/` 下外部资源的记忆本；只记录代码里查不到、用户告诉过、或需要长期记住的人话信息。
+- `README.md`：工作间总览；记录外部资源、人话理解、服务定义、协作约束、历史决定、开放想法和未定问题。
 - `todo/`：散户 TODO 账本目录；具体格式由 `skills/todo.md` 定义。
 - `epic/`：Epic 账本目录；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
 - `explore/`：想法和预研账本目录；具体格式由 `skills/explore.md` 定义。
-- `lesson/`：防复发规则库；只记录触发场景、坑、根因、下次怎么避和来源链接。
+- `memory/`：长期经验与防复发记忆库；只记录触发场景、坑、根因、下次怎么避和来源链接。
 - `log/`：我生成的过程草稿和临时沉淀；收尾时要蒸馏或清掉。
 - `room/`：从账本渲染出的汇报，只给你看，我不读回。
 
@@ -69,7 +70,7 @@ projects/
 
 `project` 只负责编排初始化，不拥有各入口文件的内容格式。生成入口文件前，先读对应真相源：
 
-- `memory.md`：本文件定义初始空壳；后续只写代码里查不到、用户告诉过、或需要长期记住的信息。
+- `README.md`：本文件定义初始空壳；后续只写工作间总览、服务定义、长期背景和未定问题。
 - `todo/index.md`：读 `skills/todo.md`。
 - `epic/index.md`：读 `skills/todo.md`。
 - `prd/index.md`：读 `skills/prd.md`。
@@ -77,9 +78,9 @@ projects/
 
 对应 skill 改了格式，初始化时跟随对应 skill；不在本文件复制字段。
 
-### `memory.md` 记录什么
+### `README.md` 记录什么
 
-`memory.md` 是工作间的记忆本。它记录：
+`README.md` 是工作间总览。它记录：
 
 - luca 管了哪些外部资源。
 - 每个资源在人话层面是什么。
@@ -87,11 +88,13 @@ projects/
 - 你告诉过 luca 的背景、偏好、约束、历史决定。
 - luca 对这些项目的开放想法，但必须标明不是事实。
 
+它是进入工作间时先读的入口，不是 `memory/` 的替代品；可复发经验和踩坑预防进 `memory/`。
+
 服务定义不是外部资源清单的强制补充。只有资源确实存在运行入口、进程、API、前端、后台任务、控制台、沙盒或部署入口时，才写服务定义；没有服务的资源只记录在“外部资源”里，不补空服务。
 
 ### 用户给出的长期信息可入规则
 
-`memory.md` 里的“用户给出的长期信息”只收会影响后续协作或项目判断的稳定信息。
+`README.md` 里的“用户给出的长期信息”只收会影响后续协作或项目判断的稳定信息。
 
 可以写入：
 
@@ -133,10 +136,10 @@ projects/
 - 原件入库后不自动清空；只有你明确要求整理或删除时才处理。
 - 账本引用 `inbox/` 来源，但不把原文整段复制进 TODO / PRD / EXP / memory。
 
-### `memory.md` 初始结构
+### `README.md` 初始结构
 
 ```md
-# Memory
+# README
 
 ## 外部资源
 
@@ -189,11 +192,12 @@ log/
 .DS_Store
 ```
 
-4. 创建 `memory.md` 空壳。
-5. 按“入口文件内容来源”创建 `memory.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
-6. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
-7. 工作间 git 默认只本地管理，不自动加 remote、不自动 push。
-8. 初始化完成后，报告壳仓和工作间仓的边界，以及工作间当前 git 状态。
+4. 创建 `README.md` 空壳。
+5. 按“入口文件内容来源”创建 `README.md`、`todo/index.md`、`epic/index.md`、`prd/index.md`、`explore/index.md`。
+6. 创建 `memory/`，作为长期经验与防复发记忆库。
+7. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非你明确说不要。
+8. 工作间 git 默认只本地管理，不自动加 remote、不自动 push。
+9. 初始化完成后，报告壳仓和工作间仓的边界，以及工作间当前 git 状态。
 
 ### 软链引入外部目录
 
@@ -204,7 +208,7 @@ log/
 3. 确保工作间已初始化。
 4. 在 `projects/links/` 下创建软链：`<link-name> -> <外部目录绝对路径>`。
 5. 读取外部目录的入口线索：`README.md`、`package.json`、`pyproject.toml`、`Makefile`、`Dockerfile`、`docker-compose*`、常见启动脚本和项目自带说明。
-6. 更新 `memory.md`：
+6. 更新 `README.md`：
    - “外部资源”写清名称、真实路径、人话功能和一句话理解。
    - “服务定义”写清服务名、对应资源、职责、启动、停止、入口、依赖 / 顺序和必要备注。
    - 只有确认资源存在服务或运行入口时，才写“服务定义”；没有服务的资源不补空行。
@@ -242,9 +246,9 @@ log/
 
 - 壳仓只收 luca 自己，不收工作间账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 工作间默认启用独立本地 git，版本化 `memory.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/` 和 `lesson/`；不收 `links/`、`room/` 和 `log/`。
+- 工作间默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`epic/`、`prd/`、`explore/` 和 `memory/`；不收 `links/`、`room/` 和 `log/`。
 - 工作间仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
 - 不在本文件复制任何账本字段；字段变化只改对应 skill。
-- `memory.md` 不记录能从外部资源中重新读取或推理出来的代码结构。
+- `README.md` 不记录能从外部资源中重新读取或推理出来的代码结构。
