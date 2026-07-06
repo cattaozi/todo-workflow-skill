@@ -24,6 +24,8 @@
 
 ## 状态
 
+EXP 文件 frontmatter 使用文本状态：
+
 ```text
 seed → researching → concluded
 concluded → promoted
@@ -37,6 +39,8 @@ concluded → dropped
 - `concluded`：已有可判断结论。
 - `promoted`：已转 PRD 或 TODO。
 - `dropped`：已判断不做或无价值。
+
+EXP index 状态 emoji：🌱 seed，🟡 researching，✅ concluded，🔁 promoted，⚫ dropped。
 
 ## 动作协议
 
@@ -54,7 +58,7 @@ concluded → dropped
 3. 把用户输入改写成调研问题。
 4. 如果调研方向不止一个，先写出候选方向、取舍代价和我的建议，等你确认后再进入系统调研。
 5. 扫 `prd/`、`todo/`、`projects/README.md`，记录关联，避免重复。
-6. 写入 `explore/index.md` 活跃表：编号、标题、状态 `seed`、下一步、备注。
+6. 写入 `explore/index.md` 活跃表：编号、标题、状态 🌱、下一步、备注。
 
 EXP 文件结构：
 
@@ -87,7 +91,7 @@ note:
 
 动作：
 
-1. 状态改为 `researching`，index 状态改为 🟡。
+1. EXP frontmatter 状态改为 `researching`，index 状态改为 🟡。
 2. 确认当前调研方向已经与你对齐；没有对齐就先停下澄清。
 3. 先读本地材料：`projects/README.md`、`projects/links/`、相关 PRD、TODO、`memory/`。
 4. 需要外部资料时，优先查官方文档、标准文档、论文、权威机构、公司正式公告。
@@ -103,7 +107,7 @@ note:
 
 动作：
 
-1. 状态改为 `concluded`。
+1. EXP frontmatter 状态改为 `concluded`，index 状态改为 ✅。
 2. 在 `## 结论` 写清判断、证据、风险和不确定项。
 3. 在 `## 建议去向` 写一个出口：转 PRD、转 TODO、继续调研、放弃。
 4. 向你报告结论和建议去向，等你拍板是否转出。
@@ -120,14 +124,14 @@ note:
 动作：
 
 1. 转 PRD 或 TODO 时，写 `promoted_to`。
-2. 状态改为 `promoted`。
+2. EXP frontmatter 状态改为 `promoted`。
 3. 从活跃表迁到归档表，备注写去向。
 
 ### 放弃
 
 动作：
 
-1. 状态改为 `dropped`。
+1. EXP frontmatter 状态改为 `dropped`。
 2. `note` 写原因。
 3. 从活跃表迁到归档表。
 
@@ -137,6 +141,7 @@ note:
 
 - index 是台账，放状态、下一步和备注。
 - EXP 文件是真相，放输入、调研问题、证据、实验和结论。
+- EXP 文件 frontmatter 的 `status` 使用文本；index 的“状态”列只写 emoji。
 - 证据必须能追溯来源；拿不准就标不确定，不写成事实。
 
 ### `explore/index.md` 初始结构
