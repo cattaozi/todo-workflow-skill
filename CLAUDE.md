@@ -85,6 +85,8 @@ projects/
 - `projects/links/` 是外部资源入口，保持可发现，方便 IDE / Git 识别外部 VCS Root。
 - `projects/scripts/` 是项目域资产，由 `projects/` 本地仓管理；启动文件可以操作外部服务，但不属于外部资源代码。
 - 外部资源由它自己的仓库或文件系统管理；项目域只链接，不复制、不收编。
+- `projects/links/<name>` 指向的外部资源属于 luca 的协作管理范围，但 Git 状态、提交、同步和 push 必须进入外部资源自己的真实 Git root 执行。
+- 涉及“当前工作区改动”“全部改动”“提交”“push”或“同步”时，先枚举壳仓、`projects/` 本地仓和 `projects/links/*` 指向的真实 Git root，并按 Git root 去重后分别处理。
 
 ## §2 · 记忆与沉淀
 
@@ -268,6 +270,9 @@ projects/
 3. 一次 commit 授权只对当前这一轮修改有效；每完成一轮新的改动后，必须重新等待指令。
 4. 提交前先同步远程：优先执行 `git pull --rebase`；工作区存在未提交修改时使用 `--autostash`；当前分支不存在 upstream 时跳过同步。
 5. 默认允许执行 `git commit`（需获得本轮授权）；默认禁止执行 `git push`，除非你明确要求。
+6. 提交或 push “当前工作区改动”时，先发现所有相关 Git root：壳仓、`projects/` 本地仓、`projects/links/*` 指向的外部仓；`projects/` 干净不能代表外部仓干净。
+7. 每个 Git root 独立判断 diff、暂存、提交、同步和 push；没有 remote 的仓库只跳过 push，不跳过本地提交。
+8. 汇报提交结果时按仓库列出路径、变更摘要、commit、push 状态和未执行原因。
 
 Commit message：
 
