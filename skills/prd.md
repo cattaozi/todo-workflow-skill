@@ -44,7 +44,7 @@
 
 ### 状态
 
-PRD 文件 frontmatter 和 `prd/index.md` 使用同一状态：
+PRD 文件 frontmatter 使用文本状态：
 
 ```text
 draft → reviewed → decomposed
@@ -58,7 +58,9 @@ draft → reviewed → decomposed
 - `decomposed`：已拆成 Epic / TODO。
 - `archived`：明确不做或停止推进。
 
-产品建议稿状态：
+PRD index 状态 emoji：📝 draft，🔍 reviewed，🧩 decomposed，📦 archived。
+
+产品建议稿 frontmatter 使用文本状态：
 
 ```text
 draft → submitted → accepted / rejected / converted / archived
@@ -72,6 +74,8 @@ draft → submitted → accepted / rejected / converted / archived
 - `rejected`：建议未采纳。
 - `converted`：已转成正式 PRD。
 - `archived`：停止推进。
+
+产品建议稿 index 状态 emoji：📝 draft，📨 submitted，✅ accepted，❌ rejected，🔁 converted，📦 archived。
 
 ## 动作协议
 
@@ -88,7 +92,7 @@ draft → submitted → accepted / rejected / converted / archived
 2. 创建 `prd/PRD_NNN.md`。
 3. 引导你补齐产品层信息：用户 / 问题 / 目标 / 范围 / 非目标 / 成功标准 / 约束。
 4. 不确定或需要你拍板的内容写进 `## 待拍板`。
-5. 写入 `prd/index.md` 活跃表：编号、标题、状态 `draft`、解读数、备注。
+5. 写入 `prd/index.md` 的“PRD”表：编号、标题、状态 📝、解读数、备注。
 
 PRD 文件结构：
 
@@ -149,7 +153,7 @@ note:
 2. 对抗式检查：目标是否真实、范围是否清楚、非目标是否缺失、方案是否自洽、依赖是否存在、约束是否冲突、验收是否可观察。
 3. 产出解读文件 `prd/PRD_NNN_R0001.md`；同一 PRD 多次解读时编号递增。
 4. 更新 `prd/index.md` 解读数。
-5. PRD frontmatter 和 index 状态改为 `reviewed`。
+5. PRD frontmatter 状态改为 `reviewed`，index 状态改为 🔍。
 
 解读文件结构：
 
@@ -185,7 +189,7 @@ note:
 2. 创建 `prd/PRD_PROPOSAL_NNNN.md`。
 3. 写清：背景、当前理解分歧、我的判断、建议方案、取舍依据、给产品经理的问题、建议下一步。
 4. 如果建议稿针对已有 PRD，在 frontmatter 和正文关联里写明 PRD 编号；没有关联 PRD 就留空。
-5. 写入 `prd/index.md` 的“产品建议稿”表：编号、标题、状态 `draft`、关联、备注。
+5. 写入 `prd/index.md` 的“产品建议稿”表：编号、标题、状态 📝、关联、备注。
 
 产品建议稿文件结构：
 
@@ -233,7 +237,7 @@ note:
 2. 创建 Epic，并把 PRD 关联写入 Epic README 或成员 TODO 关联中。
 3. 按 `skills/todo.md` 创建成员 TODO。
 4. 如果某个 TODO 依赖未决策或外部条件，创建为 `on_hold`，备注写阻塞来源。
-5. PRD frontmatter 和 index 状态改为 `decomposed`。
+5. PRD frontmatter 状态改为 `decomposed`，index 状态改为 🧩。
 
 ### 归档 PRD
 
@@ -260,6 +264,7 @@ note:
 - 解读文件是评审产物，放我的对抗式理解，不替代 PRD 正文。
 - 产品建议稿是讨论材料，放功能理解分歧、建议方案和给产品经理的待确认问题。
 - 解读文件不单独进 index，只计入对应 PRD 的解读数量。
+- 详情文件 frontmatter 的 `status` 使用文本；index 的“状态”列只写 emoji。
 
 ### `prd/index.md` 初始结构
 
