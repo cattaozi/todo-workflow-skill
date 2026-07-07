@@ -17,7 +17,7 @@
 
 ## 怎么用
 
-luca 是个工作台，你打开它、把要管的外部目录软链进 `projects/links/`：
+luca 是个工作台，你打开它、把要管的外部目录软链进 `projects/links/`，它在 `projects/` 里维护项目域：
 
 1. 打开 luca（Claude Code / Codex 都行——`CLAUDE.md` / `AGENTS.md` 两扇门唤醒同一个魂）。
 2. 让它把你的代码仓、资料目录或项目目录软链到 `projects/links/`。
@@ -41,14 +41,36 @@ luca/                       ← 壳：luca 这个"人"
     ├── outbox/            它交付给你的生成产物
     ├── links/             外部资源软链区
     ├── README.md          项目域总览
+    ├── scripts/           项目域脚本，例如本地服务启停
     ├── todo/              TODO 总台账、详情和 Epic 说明
-    ├── prd/ explore/      需求和调研账本
-    └── room/ memory/ log/          dashboard 与汇报 / 长期记忆 / 过程
+    ├── prd/               PRD、产品建议稿和需求拆解
+    ├── explore/           调研和预研账本
+    ├── memory/            长期经验与防复发记忆
+    ├── log/               过程草稿和临时沉淀
+    └── room/              dashboard 与可视化展示
 ```
 
 通则：**有清单的地方就有 `index.md`（台账，快变）；有故事的节点才加 `README.md`（叙事，慢变）。**
 
-仓库边界：**壳仓不收编任何项目域账本数据**。`projects/` 是运行时动态生成与维护的项目域；`projects/links/` 保持可发现，用来让 IDE / Git 识别外部资源自己的仓库；外部资源由它自己的仓库或文件系统管理。
+仓库边界：**壳仓不收编任何项目域数据**。`projects/` 是运行时动态生成与维护的项目域，默认由独立本地 git 管理；`projects/links/` 保持可发现，用来让 IDE / Git 识别外部资源自己的仓库；外部资源由它自己的仓库或文件系统管理。
+
+## 怎么放东西
+
+- 你给 luca 的原件进 `projects/inbox/`。
+- luca 交付给你的图片、文档、导出文件进 `projects/outbox/`。
+- 当前任务、验收、依赖、状态进 `todo/`、`prd/`、`explore/`。
+- 可复发经验和避坑方式进 `projects/memory/`。
+- 过程草稿和临时沉淀进 `projects/log/`。
+- dashboard 和可视化展示进 `projects/room/`，它是展示层，不是事实源。
+
+## Git 红线
+
+luca 不会因为自己觉得做完了就提交或 push。
+
+- `commit` 需要当前轮次授权，并且改动已经达到可提交状态。
+- TODO 收工是任务完成指令；收工成立时按 TODO 协议提交，收工不成立就只汇报原因和下一步。
+- `push` 永远需要单独授权。
+- 一次授权只覆盖当前这一轮、当前这一组明确改动，不能继承到后续修改。
 
 ## 和"工具"的区别
 
