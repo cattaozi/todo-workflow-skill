@@ -38,6 +38,7 @@ luca/                       ← 壳：luca 这个"人"
 ├── skills/                方法（project / todo / prd / explore / room）
 └── projects/
     ├── inbox/             你给它的原始材料
+    ├── outbox/            它交付给你的生成产物
     ├── links/             外部资源软链区
     ├── README.md          项目域总览
     ├── todo/              TODO 总台账、详情和 Epic 说明

@@ -1,6 +1,6 @@
 # skills/project —— 我怎么初始化项目域和挂载外部资源
 
-> `projects/` 是 luca 的项目域：放一套账本、项目域总览、长期记忆、用户原始材料和项目域脚本。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编项目域数据；项目域默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
+> `projects/` 是 luca 的项目域：放一套账本、项目域总览、长期记忆、用户原始材料、交付产物和项目域脚本。外部项目、源码仓、资料目录通过软链挂到 `projects/links/`。壳仓不收编项目域数据；项目域默认由 `projects/` 自己的本地 git 管理，`projects/links/` 保持可发现，方便 IDE / Git 识别外部仓。
 
 ## 什么时候读我
 
@@ -24,6 +24,7 @@
 - 将外部资源移出 luca 的项目域管理。
 - 从外部目录的 README、脚本和配置里识别功能、启动方式、停止方式，并写入 `projects/README.md`。
 - 维护项目域启动文件 `projects/scripts/dev-services.sh` 的位置、命令形态和日志位置。
+- 规划 luca 交付产物的落点 `projects/outbox/`。
 - 让 `README.md` 的服务定义和启动文件保持一致。
 - 维护三层边界：壳仓、项目域、外部资源。
 - 说明各目录职责。
@@ -45,6 +46,7 @@ projects/
 ├── .gitignore
 ├── README.md
 ├── inbox/
+├── outbox/
 ├── links/
 │   ├── app-a -> <外部目录 A>
 │   └── app-b -> <外部目录 B>
@@ -68,6 +70,7 @@ projects/
 
 - `links/`：外部资源软链区；用户提供多个目录地址时，统一软链到这里。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件；可以长期保留，入库后不清空。
+- `outbox/`：我交付给用户的生成产物库；图片、文档、导出文件和其它可交付成果放这里。
 - `README.md`：项目域总览；记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
 - `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件；具体格式由 `skills/todo.md` 定义。
@@ -156,6 +159,29 @@ projects/
 - 原件入库后不自动清空；只有你明确要求整理或删除时才处理。
 - 账本引用 `inbox/` 来源，但不把原文整段复制进 TODO / PRD / EXP / memory。
 
+### `outbox/` 可入规则
+
+`outbox/` 是 luca 的产出口袋，放已经准备交付给用户的生成产物。
+
+可以写入：
+
+- 用户要求我生成的图片、图表、文档、报告、导出文件和其它可交付成果。
+- 需要作为附件、下载物或长期可找回成果保存的文件。
+- 从账本任务中产出的最终交付物。
+
+不要写入：
+
+- TODO / PRD / EXP / memory 等账本对象本身。
+- 过程草稿、中间分析、临时笔记和执行日志；这些进 `log/`。
+- dashboard 和其它展示页；这些进 `room/`。
+- 用户原始材料；这些进 `inbox/`。
+
+处理规则：
+
+- 命名以用户能识别为准，必要时按主题建子目录。
+- 产物对应某个 TODO / PRD / EXP 时，在对应详情文件里引用 `outbox/` 路径。
+- 产物只是本轮临时预览且用户没有要求保存时，不强行落盘。
+
 ### `README.md` 初始结构
 
 ```md
@@ -186,7 +212,7 @@ projects/
 
 - 用户语义是在要求项目域具备本地版本管理或可审计变化能力。
 - 第一次引入外部资源并创建项目域时。
-- 我发现 `projects/` 已经有账本、记忆或 `inbox/`，但 `git -C projects rev-parse --show-toplevel` 指向壳仓或失败。
+- 我发现 `projects/` 已经有账本、记忆、`inbox/` 或 `outbox/`，但 `git -C projects rev-parse --show-toplevel` 指向壳仓或失败。
 
 满足条件后直接执行，不需要反复确认；除非用户语义明确排除本地版本管理。
 
@@ -201,7 +227,7 @@ projects/
 ### 初始化项目域
 
 1. 若 `projects/` 已存在，先审计结构并只补缺失项；不存在再创建生成结构。
-2. 创建 `projects/inbox/`、`projects/links/`、`projects/scripts/`、`projects/log/` 和 `projects/room/`。
+2. 创建 `projects/inbox/`、`projects/outbox/`、`projects/links/`、`projects/scripts/`、`projects/log/` 和 `projects/room/`。
 3. 创建项目域 `.gitignore`，至少忽略：
 
 ```gitignore
@@ -259,7 +285,7 @@ log/
 - push 前必须在对应仓库执行 `git pull --rebase`；工作区存在未提交修改时使用 `--autostash`；当前分支没有 upstream 时跳过同步。
 - 没有 remote 的仓库只跳过 push，不跳过本地 diff 检查和本地提交。
 - 汇报按仓库列出路径、变更摘要、commit、push 状态和未执行原因。
-- 外部资源的代码变更提交到外部资源自己的仓库；`projects/` 只提交账本、记忆、脚本和用户原始材料变化。
+- 外部资源的代码变更提交到外部资源自己的仓库；`projects/` 只提交账本、记忆、脚本、用户原始材料和交付产物变化。
 
 ### 启动文件管理
 

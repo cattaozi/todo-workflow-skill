@@ -45,6 +45,7 @@
 projects/
 ├── README.md
 ├── inbox/
+├── outbox/
 ├── links/
 ├── scripts/
 │   └── dev-services.sh  # 有本地长期服务时生成
@@ -64,6 +65,7 @@ projects/
 
 - `README.md`：项目域总览，记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件。
+- `outbox/`：我交付给用户的生成产物库，放图片、文档、导出文件和其它可交付成果。
 - `links/`：外部资源软链区，可以是源码仓、资料目录或其它项目目录。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
 - `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件。
@@ -98,6 +100,7 @@ projects/
 | 外部资源、人话理解、服务定义、协作约定、待确认事项 | `projects/README.md` |
 | 本地服务启动文件 | `projects/scripts/dev-services.sh` |
 | 用户给的原始文件、会议纪要、截图说明、长文本、路径说明 | `projects/inbox/` |
+| 我交付给用户的图片、文档、导出文件和其它生成产物 | `projects/outbox/` |
 | TODO / Epic / PRD / EXP 的状态、依赖、验收、结论、去向 | 对应账本和详情文件 |
 | 可复发经验、踩坑预防、下次怎么避 | `projects/memory/` |
 | 过程草稿、中间沉淀 | `projects/log/` |
