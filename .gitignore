@@ -9,12 +9,13 @@ __pycache__/
 *.pyc
 
 # luca：壳只版本化"luca 这个人"。
-# 项目域不进壳仓；projects/ 默认由独立本地 git 管理账本和用户原始材料。
+# 项目域不进壳仓；projects/ 默认由独立本地 git 管理账本、用户原始材料和交付产物。
 # links/ 是外部仓入口，需要保持可发现，方便 IDE / Git 识别外部 VCS Root。
 projects/.git/
 projects/.gitignore
 projects/README.md
 projects/inbox/
+projects/outbox/
 projects/todo/
 projects/prd/
 projects/explore/
