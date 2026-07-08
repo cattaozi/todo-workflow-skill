@@ -105,7 +105,7 @@ projects/
 | 外部资源、人话理解、服务定义、协作约定、待确认事项 | `projects/README.md` |
 | 本地服务启动文件 | `projects/scripts/dev-services.sh` |
 | 用户给的原始文件、会议纪要、截图说明、长文本、路径说明 | `projects/inbox/` |
-| 我生成并需要保存的内容 | `projects/outbox/` |
+| 我生成并需要保存的内容、诊断报告 | `projects/outbox/` |
 | TODO / Epic / PRD / EXP 的状态、依赖、验收、结论、去向 | 对应账本和详情文件 |
 | 可复发经验、踩坑预防、下次怎么避 | `projects/memory/` |
 | 运行日志、服务日志、PID、临时状态和诊断痕迹 | `projects/log/` |
@@ -223,6 +223,7 @@ projects/
 - PRD 与需求澄清：`skills/prd.md`
 - EXP 与预研：`skills/explore.md`
 - room 展示渲染：`skills/room.md`
+- 自我诊断与回流：`skills/diagnose.md`
 
 新增、删除、重塑 skill 时，必须同步更新 `ABILITY.md`。
 
