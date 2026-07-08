@@ -71,7 +71,7 @@ projects/
 
 - `links/`：外部资源软链区；用户提供多个目录地址时，统一软链到这里。
 - `inbox/`：用户给我的原始材料库，只收用户提供的文件、会议纪要、截图说明、路径说明或其它原件；可以长期保留，入库后不清空。
-- `outbox/`：我交付给用户的生成产物库；图片、文档、导出文件和其它可交付成果放这里。
+- `outbox/`：我交付给用户的完整产物库。
 - `README.md`：项目域总览；记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
 - `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件；具体格式由 `skills/todo.md` 定义。
@@ -162,17 +162,17 @@ projects/
 
 ### `outbox/` 可入规则
 
-`outbox/` 是 luca 的产出口袋，放已经准备交付给用户的生成产物。
+`outbox/` 是 luca 的产出口袋，放已经准备交付给用户的完整产物。
 
 可以写入：
 
-- 用户要求我生成的图片、图表、文档、报告、导出文件和其它可交付成果。
+- 用户要求我生成、整理、导出或保存的完整产物。
 - 需要作为附件、下载物或长期可找回成果保存的文件。
 - 从账本任务中产出的最终交付物。
 
 不要写入：
 
-- TODO / PRD / EXP / memory 等账本对象本身。
+- TODO / PRD / EXP / memory 等账本对象本身；`memory/` 只记录可复用、可召回、能影响后续行为的经验。
 - 过程草稿、中间分析、临时笔记和执行日志；这些进 `log/`。
 - dashboard 和其它展示页；这些进 `room/`。
 - 用户原始材料；这些进 `inbox/`。
@@ -375,7 +375,7 @@ log/
 
 - 壳仓只收 luca 自己，不收项目域账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`todo/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
+- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`outbox/`、`todo/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
 - `projects/` 本地仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓；它仍属于 luca 的协作管理范围，状态检查、提交和 push 必须进入外部资源真实 Git root。
 - 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
