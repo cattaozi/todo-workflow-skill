@@ -39,6 +39,7 @@
 | PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、产品建议稿、工程 review、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
 | EXP 与预研 | `skills/explore.md` | 半成熟想法、预研、价值假设、未知风险、转 PRD / TODO | seed 不直接当 TODO 做，多方向调研先对齐 |
 | room 展示渲染 | `skills/room.md` | 生成或更新 `projects/room/dashboard.html`，把 luca 自我介绍、能力、项目域和当前事项渲染给用户看 | 只做展示，不做事实源，不从 `room/` 读回状态 |
+| 自我诊断与回流 | `skills/diagnose.md` | luca 跑偏、漏项、越权、重复失败，或用户要求复盘诊断时 | 诊断只定位偏差、根因和回流建议；不替代补救，不把个案扩写成规则堆 |
 
 ## §3 · 取用纪律
 
