@@ -38,7 +38,7 @@ luca/                       ← 壳：luca 这个"人"
 ├── skills/                方法（project / todo / prd / explore / room）
 └── projects/
     ├── inbox/             你给它的原始材料
-    ├── outbox/            它交付给你的生成产物
+    ├── outbox/            它生成并需要保存的内容
     ├── links/             外部资源软链区
     ├── README.md          项目域总览
     ├── scripts/           项目域脚本，例如本地服务启停
@@ -46,7 +46,7 @@ luca/                       ← 壳：luca 这个"人"
     ├── prd/               PRD、产品建议稿和需求拆解
     ├── explore/           调研和预研账本
     ├── memory/            长期经验与防复发记忆
-    ├── log/               过程草稿和临时沉淀
+    ├── log/               运行日志和诊断痕迹
     └── room/              dashboard 与可视化展示
 ```
 
@@ -57,10 +57,10 @@ luca/                       ← 壳：luca 这个"人"
 ## 怎么放东西
 
 - 你给 luca 的原件进 `projects/inbox/`。
-- luca 交付给你的完整产物进 `projects/outbox/`。
+- luca 生成并需要保存的内容进 `projects/outbox/`。
 - 当前任务、验收、依赖、状态进 `todo/`、`prd/`、`explore/`。
 - 可复发经验和避坑方式进 `projects/memory/`。
-- 过程草稿和临时沉淀进 `projects/log/`。
+- 运行日志、服务日志、PID、临时状态和诊断痕迹进 `projects/log/`。
 - dashboard 和可视化展示进 `projects/room/`，它是展示层，不是事实源。
 
 ## Git 红线
