@@ -69,7 +69,8 @@ skills/reference/design.md
 4. 生成静态 HTML，CSS 内联，不依赖外网资源。
 5. 页面只展示当前可确认事实；推测必须标明。
 6. 每次生成都覆盖 `projects/room/dashboard.html`，不把旧页面当历史记录。
-7. 完成后报告 dashboard 路径、读取来源和缺失区域。
+7. 生成后优先用 Codex preview / in-app browser 打开验证页面可读性、布局和关键内容；无法预览时说明原因。
+8. 完成后报告 dashboard 路径、读取来源和缺失区域。
 
 ## 更新时机
 
