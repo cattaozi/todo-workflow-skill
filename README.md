@@ -35,7 +35,7 @@ luca/                       ← 壳：luca 这个"人"
 ├── ABILITY.md             能力集：会什么、什么时候想起、缺能力怎么补
 ├── PROPOSALS.md           待拍板的本体成长建议
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
-├── skills/                方法（project / todo / prd / explore / room）
+├── skills/                方法（project / todo / prd / explore / room / review / diagnose）
 └── projects/
     ├── inbox/             你给它的原始材料
     ├── outbox/            它生成并需要保存的内容

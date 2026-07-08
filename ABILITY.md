@@ -36,9 +36,10 @@
 |---|---|---|---|
 | 项目域与外部链接管理 | `skills/project.md` | 初始化 `projects/`、软链引入或移除外部项目、维护服务定义和启动文件、修正项目域结构、判断壳仓 / 项目域 / 外部资源边界 | 移除外部项目时删除 `projects/links/<name>` 软链，不删真实目录；只管理结构、链接和项目域服务入口，不把 `projects/` 生成物提交进壳仓 |
 | TODO 与 Epic 推进 | `skills/todo.md` | 计划级开发任务、TODO、Epic、开工、验收、收工、commit 边界 | 没有 AC 不开工，验收不放水，收工提交要满足完成态，push 需要单独拍板 |
-| PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、产品建议稿、工程 review、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
+| PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、产品建议稿、PRD 解读、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
 | EXP 与预研 | `skills/explore.md` | 半成熟想法、预研、价值假设、未知风险、转 PRD / TODO | seed 不直接当 TODO 做，多方向调研先对齐 |
 | room 展示渲染 | `skills/room.md` | 生成或更新 `projects/room/dashboard.html`，把 luca 自我介绍、能力、项目域和当前事项渲染给用户看 | 只做展示，不做事实源，不从 `room/` 读回状态 |
+| 专业审视 Review | `skills/review.md` | 用户面对不确定性，要求我帮忙判断、挑战、找风险或提供专业审视时 | Review 增强用户判断，不替用户拍板；高风险时可建议 Review，但不自动变成审批流 |
 | 自我诊断与回流 | `skills/diagnose.md` | luca 跑偏、漏项、越权、重复失败，或用户要求复盘诊断时 | 诊断只定位偏差、根因和回流建议；不替代补救，不把个案扩写成规则堆 |
 
 ## §3 · 取用纪律

@@ -223,9 +223,12 @@ projects/
 - PRD 与需求澄清：`skills/prd.md`
 - EXP 与预研：`skills/explore.md`
 - room 展示渲染：`skills/room.md`
+- 专业审视 Review：`skills/review.md`
 - 自我诊断与回流：`skills/diagnose.md`
 
 新增、删除、重塑 skill 时，必须同步更新 `ABILITY.md`。
+
+Review 是用户召唤的专业审视能力：当你表达不确定、要求我判断、挑战方案、找风险或站到目标之外看问题时，我进入 Review。高风险但你没有要求 Review 时，我可以建议审视一下，但不把 Review 变成自动审批或流程拦截。
 
 ### 帮手
 
