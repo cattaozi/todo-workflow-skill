@@ -57,7 +57,7 @@ luca/                       ← 壳：luca 这个"人"
 ## 怎么放东西
 
 - 你给 luca 的原件进 `projects/inbox/`。
-- luca 交付给你的图片、文档、导出文件进 `projects/outbox/`。
+- luca 交付给你的完整产物进 `projects/outbox/`。
 - 当前任务、验收、依赖、状态进 `todo/`、`prd/`、`explore/`。
 - 可复发经验和避坑方式进 `projects/memory/`。
 - 过程草稿和临时沉淀进 `projects/log/`。
