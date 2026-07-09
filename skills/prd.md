@@ -236,10 +236,26 @@ note:
 动作：
 
 1. 先判断是否需要 Epic；默认 PRD 拆成 Epic，因为一个 TODO 一般干不完整个 PRD。
-2. 创建 Epic，并把 PRD 关联写入 Epic README 或成员 TODO 关联中。
+2. 创建 Epic，并把 PRD 关联写入 `todo/epic/<slug>.md` 或成员 TODO 关联中。
 3. 按 `skills/todo.md` 创建成员 TODO。
-4. 如果某个 TODO 依赖未决策或外部条件，创建为 `on_hold`，备注写阻塞来源。
+4. 如果某个 TODO 依赖未决策或外部条件，先按 `skills/todo.md` 创建 TODO，再按搁置动作改为 `on_hold`，备注写阻塞来源。
 5. PRD frontmatter 状态改为 `decomposed`，index 状态改为 🧩。
+
+### 更新产品建议稿状态
+
+门槛：
+
+- 已有产品建议稿。
+- 用户语义是在记录建议稿已提交、被采纳、被驳回、转成 PRD 或停止推进。
+
+动作：
+
+1. 读取建议稿和 `prd/index.md` 对应行。
+2. 按事实更新建议稿 frontmatter 状态和 `prd/index.md` 状态。
+3. `submitted` 补 `submitted: <YYYY-MM-DD>`。
+4. `accepted`、`rejected`、`archived` 在 `note` 写清结果或原因。
+5. `converted` 必须关联新建或已有 PRD 编号；没有 PRD 编号时，先创建 PRD 或停下说明缺口。
+6. 只更新建议稿状态，不直接拆 TODO。
 
 ### 归档 PRD
 
