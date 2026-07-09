@@ -57,7 +57,7 @@ EXP index 状态 emoji：🌱 seed，🟡 researching，✅ concluded，🔁 pro
 1. 分配下一个 `EXP_NNN`：扫描 `explore/` 下已有编号，取最大编号加一；没有就从 `EXP_001` 开始。
 2. 创建 `explore/EXP_NNN.md`。
 3. 把用户输入改写成调研问题。
-4. 如果调研方向不止一个，先写出候选方向、取舍代价和我的建议，等你确认后再进入系统调研。
+4. 如果调研方向不止一个，先把候选方向、取舍代价和我的建议写入 EXP，更新 index 下一步，等你确认后再进入系统调研。
 5. 扫 `prd/`、`todo/`、`projects/README.md`，记录关联，避免重复。
 6. 写入 `explore/index.md` 活跃表：编号、标题、状态 🌱、下一步、备注。
 7. EXP 由用户原始材料生成时，先确保原件或可追溯副本进入 `inbox/`，再在标题后插入 `## 来源 / Source` 并写明生成依据。只有当前对话指令时，不创建来源段。
@@ -93,8 +93,8 @@ note:
 
 动作：
 
-1. EXP frontmatter 状态改为 `researching`，index 状态改为 🟡。
-2. 确认当前调研方向已经与你对齐；没有对齐就先停下澄清。
+1. 确认当前调研方向已经与你对齐；没有对齐就先停下澄清，不改状态。
+2. EXP frontmatter 状态改为 `researching`，index 状态改为 🟡。
 3. 先读本地材料：`projects/README.md`、`projects/links/`、相关 PRD、TODO、`memory/`。
 4. 需要外部资料时，优先查官方文档、标准文档、论文、权威机构、公司正式公告。
 5. 需要验证时，做最小实验；实验只回答调研问题，不扩展成实现。
@@ -121,13 +121,14 @@ note:
 - 产品功能或需求方案不清：转 `skills/prd.md` 创建 PRD。
 - 明确工程任务且说得出 DoD：转 `skills/todo.md` 创建 TODO。
 - 仍缺关键证据：保持 `concluded`，备注下一轮调研问题。
-- 无价值或不做：转 dropped。
+- 无价值或不做：按“放弃”动作转 `dropped`。
 
 动作：
 
-1. 转 PRD 或 TODO 时，写 `promoted_to`。
-2. EXP frontmatter 状态改为 `promoted`。
-3. 从活跃表迁到归档表，备注写去向。
+1. 你拍板转 PRD 或 TODO 后，先按对应 skill 创建目标对象。
+2. 写 `promoted_to`，指向新建 PRD 或 TODO。
+3. EXP frontmatter 状态改为 `promoted`。
+4. 从活跃表迁到归档表，备注写去向。
 
 ### 放弃
 
