@@ -231,14 +231,14 @@ note:
 
 - PRD 状态是 `reviewed`。
 - 阻塞拆解的待拍板已经有决策。
-- 能拆出说得出 DoD 的工程任务。
+- 能拆出目标、范围、规格和 AC 清楚的任务级实施规格。
 
 动作：
 
 1. 先判断是否需要 Epic；默认 PRD 拆成 Epic，因为一个 TODO 一般干不完整个 PRD。
 2. 创建 Epic，并把 PRD 关联写入 `todo/epic/<slug>.md` 或成员 TODO 关联中。
 3. 按 `skills/todo.md` 创建成员 TODO。
-4. 如果某个 TODO 依赖未决策或外部条件，先按 `skills/todo.md` 创建 TODO，再按搁置动作改为 `on_hold`，备注写阻塞来源。
+4. 外部条件只阻塞实施、不影响规格完整性时，按 `skills/todo.md` 创建 TODO 后改为 `on_hold`，备注写阻塞来源；未决策会改变目标、范围、规格或 AC 时，先保留为 PRD 待拍板，不创建 TODO。
 5. PRD frontmatter 状态改为 `decomposed`，index 状态改为 🧩。
 
 ### 更新产品建议稿状态
