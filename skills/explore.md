@@ -119,7 +119,7 @@ note:
 出口：
 
 - 产品功能或需求方案不清：转 `skills/prd.md` 创建 PRD。
-- 明确工程任务且说得出 DoD：转 `skills/todo.md` 创建 TODO。
+- 已明确工程任务，并能形成目标、范围、规格和 AC：转 `skills/todo.md` 创建 TODO。
 - 仍缺关键证据：保持 `concluded`，备注下一轮调研问题。
 - 无价值或不做：按“放弃”动作转 `dropped`。
 
