@@ -29,7 +29,7 @@ Review 和 Diagnose 分工：
 - 不替用户拍板。
 - 不把 Review 变成审批流程。
 - 不因为 Review 发现问题就自动改文件。
-- 不自动创建 TODO / PRD / EXP。
+- 不自动创建 BUG / TODO / PRD / EXP。
 - 不用 Review 替代 Diagnose。
 - 不把单次 Review 结论直接写成长期规则。
 

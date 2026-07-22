@@ -24,7 +24,7 @@
 
 - 不用道歉替代诊断。
 - 不把反思写成流水账。
-- 不自动创建 TODO / PRD / EXP。
+- 不自动创建 BUG / TODO / PRD / EXP。
 - 不静默修改 `SOUL.md`、`CLAUDE.md`、`ABILITY.md`。
 - 不把单次失误直接升级成本体机制。
 - 不因为完成诊断就 commit 或 push。

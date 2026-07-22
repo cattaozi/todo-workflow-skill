@@ -35,13 +35,14 @@ luca/                       ← 壳：luca 这个"人"
 ├── ABILITY.md             能力集：会什么、什么时候想起、缺能力怎么补
 ├── PROPOSALS.md           待拍板的本体成长建议
 ├── EVOLUTION.md           它的设计史 + 自我精简纪律
-├── skills/                方法（project / todo / prd / explore / room / review / diagnose）
+├── skills/                方法（project / bug / todo / prd / explore / room / review / diagnose）
 └── projects/
     ├── inbox/             你给它的原始材料
     ├── outbox/            它生成并需要保存的内容
     ├── links/             外部资源软链区
     ├── README.md          项目域总览
     ├── scripts/           项目域脚本，例如本地服务启停
+    ├── bug/               Bug 台账和修复记录
     ├── todo/              TODO 总台账、详情和 Epic 说明
     ├── prd/               PRD、产品建议稿和需求拆解
     ├── explore/           调研和预研账本
@@ -58,6 +59,7 @@ luca/                       ← 壳：luca 这个"人"
 
 - 你给 luca 的原件进 `projects/inbox/`。
 - luca 生成并需要保存的内容进 `projects/outbox/`。
+- 缺陷现象、根因、测试方式和最终解决方法进 `projects/bug/`。
 - TODO 详情是任务级实施规格，目标、范围、规格、验收、实现计划和验证证据都进 `todo/`；产品需求和调研分别进 `prd/`、`explore/`。
 - 可复发经验和避坑方式进 `projects/memory/`。
 - 运行日志、服务日志、PID、临时状态和诊断痕迹进 `projects/log/`。
