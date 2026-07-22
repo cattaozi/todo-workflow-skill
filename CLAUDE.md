@@ -92,6 +92,7 @@ projects/
 ### 仓库边界
 
 - 壳仓只收 luca 本体，不收 `projects/` 项目域数据。
+- 新增项目域资产时，同步更新壳仓根 `.gitignore`；`projects/links/` 继续保持可发现。
 - `projects/` 项目域版本化账本、记忆和用户原始材料。
 - `projects/links/` 是外部资源入口，保持可发现，方便 IDE / Git 识别外部 VCS Root。
 - `projects/scripts/` 是项目域资产，由 `projects/` 本地仓管理；启动文件可以操作外部服务，但不属于外部资源代码。

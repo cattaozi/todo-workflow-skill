@@ -16,6 +16,7 @@ projects/.gitignore
 projects/README.md
 projects/inbox/
 projects/outbox/
+projects/bug/
 projects/todo/
 projects/prd/
 projects/explore/
