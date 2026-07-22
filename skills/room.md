@@ -12,14 +12,14 @@
 
 - 生成或更新 `projects/room/dashboard.html`。
 - 从本体文件和项目域事实中提炼给人看的当前状态。
-- 让用户一眼看到：luca 的定位、做事风格、能力集、外部资源、服务入口、当前事项、需求 / 调研、记忆入口和待确认事项。
+- 让用户一眼看到：luca 的定位、做事风格、能力集、外部资源、服务入口、当前 Bug、当前事项、需求 / 调研、记忆入口和待确认事项。
 
 ## 不负责
 
 - 不把 `room/` 当事实源。
 - 不从 `room/` 读回状态。
 - 不在 dashboard 里创造新事实。
-- 不替代 `projects/README.md`、TODO / PRD / EXP index 或 `memory/`。
+- 不替代 `projects/README.md`、BUG / TODO / PRD / EXP index 或 `memory/`。
 
 ## dashboard 文件
 
@@ -41,6 +41,7 @@ skills/reference/design.md
 - `ABILITY.md`：能力层次和已沉淀能力。
 - `CLAUDE.md`：项目域边界、记忆规则、协作规则。
 - `projects/README.md`：外部资源、服务定义、协作约定、待确认事项。
+- `projects/bug/index.md`：待修复和已修复 Bug。
 - `projects/todo/index.md`：当前 TODO 和 Epic 状态。
 - `projects/prd/index.md`：PRD 和产品建议稿状态。
 - `projects/explore/index.md`：EXP 状态。
@@ -56,10 +57,11 @@ skills/reference/design.md
 2. **做事风格**：配合默认、语义优先、对象优先、读够即停、收尾落账。
 3. **能力集**：已沉淀能力、适用场景、边界。
 4. **当前项目域**：外部资源、人话理解、远程 Git、服务定义和启动入口。
-5. **当前事项**：TODO 待办、Epic 分组、已归档摘要。
-6. **需求与调研**：PRD、产品建议稿、EXP 当前状态。
-7. **记忆与约定**：协作约定、长期记忆入口、待确认事项。
-8. **更新时间与来源**：生成时间、读取了哪些源文件。
+5. **当前缺陷**：待修复 Bug 和近期已修复摘要。
+6. **当前事项**：TODO 待办、Epic 分组、已归档摘要。
+7. **需求与调研**：PRD、产品建议稿、EXP 当前状态。
+8. **记忆与约定**：协作约定、长期记忆入口、待确认事项。
+9. **更新时间与来源**：生成时间、读取了哪些源文件。
 
 ## 生成规则
 
@@ -75,7 +77,7 @@ skills/reference/design.md
 ## 更新时机
 
 - 用户要求查看 luca 或项目域 dashboard。
-- 外部资源、服务定义、能力集、TODO / PRD / EXP 或记忆入口发生明显变化。
+- 外部资源、服务定义、能力集、BUG / TODO / PRD / EXP 或记忆入口发生明显变化。
 - 新 luca 实例初始化后，需要让用户快速理解当前状态。
 
 ## 触发方式

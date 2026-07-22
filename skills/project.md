@@ -18,8 +18,8 @@
 
 ## 我不负责什么
 
-- 不替代 `todo / prd / explore` 的具体推进规则。
-- 不定义 `todo / prd / explore` 的账本字段和表结构。
+- 不替代 `bug / todo / prd / explore` 的具体推进规则。
+- 不定义 `bug / todo / prd / explore` 的账本字段和表结构。
 - 不把 `README.md` 扩展成独立工作流。
 - 不把 `memory/` 变成项目总览的替代品。
 - 不规定外部项目怎么写代码、测试、构建或部署。
@@ -39,6 +39,7 @@ projects/
 │   └── app-b -> <外部目录 B>
 ├── scripts/
 │   └── dev-services.sh  # 有本地长期服务时生成
+├── bug/index.md
 ├── todo/
 │   ├── index.md
 │   └── epic/
@@ -60,6 +61,7 @@ projects/
 - `outbox/`：我生成并需要保存的内容库。
 - `README.md`：项目域总览；记录外部资源、人话理解、服务定义、协作约定和待确认事项。
 - `scripts/`：项目域脚本区；`dev-services.sh` 是本地长期服务的统一启动文件。
+- `bug/`：Bug 台账和详情文件；具体格式由 `skills/bug.md` 定义。
 - `todo/`：TODO 总台账、TODO 详情和 Epic 说明文件；具体格式由 `skills/todo.md` 定义。
 - `prd/`：需求账本目录；具体格式由 `skills/prd.md` 定义。
 - `explore/`：想法和预研账本目录；具体格式由 `skills/explore.md` 定义。
@@ -73,6 +75,7 @@ projects/
 
 - `README.md`：本文件定义初始空壳；后续只写项目域总览、服务定义、协作约定和待确认事项。
 - `scripts/dev-services.sh`：本文件定义启动文件位置、对外命令形态和日志位置；脚本实现由我按当前服务定义和外部资源实际情况生成。
+- `bug/index.md`：读 `skills/bug.md`。
 - `todo/index.md`：读 `skills/todo.md`。
 - `todo/epic/<slug>.md`：读 `skills/todo.md`；有 Epic 时再创建。
 - `prd/index.md`：读 `skills/prd.md`。
@@ -131,7 +134,7 @@ projects/
 - 用户贴来的会议纪要、长文本、截图说明和路径说明。
 - 用户语义是在要求我保留的原始背景材料。
 - 用户语义是在要求保留、整理或落账的原件。
-- 产出 TODO / PRD / EXP 的原始材料或可追溯副本。
+- 产出 BUG / TODO / PRD / EXP 的原始材料或可追溯副本。
 
 不要写入：
 
@@ -145,7 +148,7 @@ projects/
 - 只有用户语义是在要求保留、整理或落账，材料产出了账本对象，或材料包含会影响后续协作的稳定事实时，才保留原件或可追溯副本。
 - 普通当前对话指令不是 `inbox/` 原件，不为补来源而复制进 `inbox/`。
 - 原件入库后不自动清空；只有你明确要求整理或删除时才处理。
-- 账本引用 `inbox/` 来源，但不把原文整段复制进 TODO / PRD / EXP / memory。
+- 账本引用 `inbox/` 来源，但不把原文整段复制进 BUG / TODO / PRD / EXP / memory。
 
 ### `outbox/` 可入规则
 
@@ -159,7 +162,7 @@ projects/
 
 不要写入：
 
-- TODO / PRD / EXP / memory 等账本对象本身；`memory/` 只记录可复用、可召回、能影响后续行为的经验。
+- BUG / TODO / PRD / EXP / memory 等账本对象本身；`memory/` 只记录可复用、可召回、能影响后续行为的经验。
 - 运行日志、服务日志、PID、临时状态和诊断痕迹；这些进 `log/`。
 - dashboard 和其它展示页；这些进 `room/`。
 - 用户原始材料；这些进 `inbox/`。
@@ -167,7 +170,7 @@ projects/
 处理规则：
 
 - 命名以用户能识别为准，必要时按主题建子目录。
-- 产物对应某个 TODO / PRD / EXP 时，在对应详情文件里引用 `outbox/` 路径。
+- 产物对应某个 BUG / TODO / PRD / EXP 时，在对应详情文件里引用 `outbox/` 路径。
 - 我生成的内容只要需要落盘保存，就进入 `outbox/`。
 
 ### `README.md` 初始结构
@@ -227,7 +230,7 @@ log/
 ```
 
 4. 创建 `README.md` 空壳。
-5. 按“入口文件内容来源”创建 `README.md`、`todo/index.md`、`todo/epic/`、`prd/index.md`、`explore/index.md`。
+5. 按“入口文件内容来源”创建 `README.md`、`bug/index.md`、`todo/index.md`、`todo/epic/`、`prd/index.md`、`explore/index.md`。
 6. 创建 `memory/README.md`，作为长期记忆入口；具体组织规则按 `CLAUDE.md`。
 7. 存在本地长期服务时，创建或更新 `scripts/dev-services.sh`；日志、PID 和临时状态目录固定为 `log/services/`。
 8. 若 `projects/` 还不是 git 仓，默认初始化为独立本地 git 仓；除非用户语义明确排除本地版本管理。
@@ -363,9 +366,9 @@ log/
 
 - 壳仓只收 luca 自己，不收项目域账本数据。
 - `projects/links/` 必须保持可发现，用于 IDE / Git 识别外部仓；软链本身不是外部资源内容，不代表收编外部项目。
-- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`outbox/`、`todo/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
+- 项目域默认启用独立本地 git，版本化 `README.md`、`inbox/`、`outbox/`、`bug/`、`todo/`、`prd/`、`explore/`、`memory/` 和 `scripts/`；不收 `links/`、`room/` 和 `log/`。
 - `projects/` 本地仓默认不配置 remote，不自动 push。
 - 外部资源由它自己的仓库或文件系统管理，不混入 luca 账本仓；它仍属于 luca 的协作管理范围，状态检查、提交和 push 必须进入外部资源真实 Git root。
-- 初始化只建最小结构，不预造空 TODO、PRD、EXP 或 Epic。
+- 初始化只建账本入口，不预造空 Bug、TODO、PRD、EXP 或 Epic。
 - 不在本文件复制任何账本字段；字段变化只改对应 skill。
 - `README.md` 不记录能从外部资源中重新读取或推理出来的代码结构。
