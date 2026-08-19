@@ -27,3 +27,4 @@ projects/local-gateway/
 projects/log/
 projects/room/
 !projects/.gitkeep
+/tmp/
