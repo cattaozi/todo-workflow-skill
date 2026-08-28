@@ -64,7 +64,12 @@ projects/
 ├── memory/
 ├── log/
 └── room/
-    └── dashboard.html  # 按需生成
+    ├── dashboard.html  # 总览入口，按需生成
+    ├── room.css        # 本地共享样式
+    ├── room.js         # 用户明确要求时提供最小本地交互
+    ├── *.html          # 当前事项、缺陷、需求与调研、记忆专题页
+    └── todo/
+        └── TODO_NNNN.html  # 从 TODO 账本与规格渲染的阅读详情页
 ```
 
 职责：
@@ -79,7 +84,7 @@ projects/
 - `prd/`、`explore/`：需求和调研账本。
 - `memory/`：长期经验与防复发记忆。
 - `log/`：运行日志、服务日志、PID、临时状态和诊断痕迹，不作为人读产物库。
-- `room/`：给用户看的展示层；`dashboard.html` 从本体、项目域和账本渲染当前状态，我不读回。
+- `room/`：给用户看的多页面展示层；`dashboard.html` 承载总览与项目域，专题页从本体、项目域和账本渲染其余主题，每个编号 TODO 另有 room 原生阅读详情页；我不读回。
 
 通则：
 

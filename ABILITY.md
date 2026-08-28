@@ -40,7 +40,7 @@
 | PRD 与需求澄清 | `skills/prd.md` | 需求草稿、产品空白、产品建议稿、PRD 解读、澄清、拆 TODO | 不替用户做产品决策，空白必须显式留待拍板 |
 | EXP 与预研 | `skills/explore.md` | 半成熟想法、预研、价值假设、未知风险、转 PRD / TODO | seed 不直接当 TODO 做，多方向调研先对齐 |
 | 方案设计 | `skills/solution.md` | 将已基本明确的问题转化为边界清楚、异常闭环、可实施和可验收的决策基线 | 不替用户拍板；需求或证据未清时回到 PRD / EXP，已有方案的独立审视进 Review，方案不代替 TODO 实施规格 |
-| room 展示渲染 | `skills/room.md` | 生成或更新 `projects/room/dashboard.html`，把 luca 自我介绍、能力、项目域和当前事项渲染给用户看 | 只做展示，不做事实源，不从 `room/` 读回状态 |
+| room 展示渲染 | `skills/room.md` | 生成或更新 `projects/room/` 多页面项目状态展示；`dashboard.html` 承载总览和项目域，项目主题与编号 TODO 详情进入独立页面 | 只做展示，不做事实源，不从 `room/` 读回状态；能力集属于 luca 本体，不进入项目 room |
 | 专业审视 Review | `skills/review.md` | 用户面对不确定性，要求我帮忙判断、挑战、找风险或提供专业审视时 | Review 增强用户判断，不替用户拍板；高风险时可建议 Review，但不自动变成审批流 |
 | 自我诊断与回流 | `skills/diagnose.md` | luca 跑偏、漏项、越权、重复失败，或用户要求复盘诊断时 | 诊断只定位偏差、根因和回流建议；不替代补救，不把个案扩写成规则堆 |
 
