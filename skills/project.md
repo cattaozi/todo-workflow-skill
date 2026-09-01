@@ -329,13 +329,15 @@ log/
 6. 从 `projects/scripts/dev-services.sh` 移除对应服务入口；如果启动文件已经没有任何服务入口，就删除该启动文件。
 7. 从 `projects/README.md` 的“待确认事项”里移除只属于该资源的待确认项。
 8. 不翻旧账：不主动改历史 TODO、Epic、PRD、EXP、memory 或 inbox；它们记录的是发生过的事实。
-9. 完成后报告：移出了哪个资源、真实目录在哪里、改了哪些项目域文件、真实目录未动。
+9. 若 `projects/room/` 已存在，只按现有页面结构同步 `projects/room/dashboard.html` 中受影响的项目域数据，包括资源数量、资源表和服务定义；不得重新生成整个 `projects/room/`，不得改动 Room 的 CSS、JS、导航、工具栏、类名或页面骨架。同步前后按 `skills/room.md` 运行 Room 门禁。
+10. 完成后报告：移出了哪个资源、真实目录在哪里、改了哪些项目域文件、Room 只更新了哪些数据区域、真实目录未动。
 
 红线：
 
 - 不使用 `rm -rf` 删除真实外部目录。
 - 不清理外部资源自己的 git、分支、文件或 IDE 配置。
 - 不为了“干净”去改历史账本。
+- 不以外部资源移出为由重建、简化或重新设计 Room。
 
 ### JetBrains VCS Root 注意事项
 
