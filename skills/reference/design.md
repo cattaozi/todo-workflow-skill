@@ -153,8 +153,9 @@ When updating the room:
 1. Read `skills/room.md`.
 2. Read this design specification.
 3. Read the current fact sources.
-4. Fully regenerate the overview, all topic pages, all numbered TODO detail pages, and shared stylesheet under `projects/room/`.
-5. Validate that every navigation target exists and only one navigation item is active per page.
-6. Report the entry path, sources read, and missing areas.
+4. For ledger-only data changes, update only the derived values and pages affected by those facts; create or remove a numbered TODO detail page only when that TODO is created or removed. Do not rebuild unrelated pages or shared assets.
+5. Regenerate the full affected page set only when its template, navigation, information architecture, shared style, or rendering rule changes; a site-wide rebuild is reserved for truly global changes.
+6. Validate the affected counts, states, local links, and navigation targets; every changed page must still have exactly one active navigation item.
+7. Report the entry path, sources read, and missing areas.
 
-Do not patch old HTML by guessing local changes. When visual rules change, this file is the source of truth.
+Incremental updates must still be derived from the current fact sources rather than guessed from old HTML. When visual rules change, this file is the source of truth.
