@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from pathlib import Path
 import hashlib
 import re
@@ -13,6 +14,7 @@ BASELINE = ROOT / "skills" / "room-assets"
 RUNTIME = ROOT / "projects" / "room"
 TODO_INDEX = ROOT / "projects" / "todo" / "index.md"
 TODO_LEDGER = ROOT / "projects" / "todo"
+PROJECTS_README = ROOT / "projects" / "README.md"
 
 TODO_ROW_RE = re.compile(
     r"^\| \[#(?P<id>\d{4})\]\(TODO_(?P=id)\.md\) \| "
@@ -32,6 +34,14 @@ INDEX_STATUS_TO_DETAIL = {
 }
 TERMINAL_INDEX_STATUS_TO_ROOM = {"🟢": "completed", "⚫": "abandoned"}
 NON_TERMINAL_ROOM_STATUSES = {"ready", "waiting", "progress", "hold"}
+EPIC_STATUS_PRECEDENCE = (
+    "progress",
+    "waiting",
+    "ready",
+    "hold",
+    "completed",
+    "abandoned",
+)
 ROOM_STATUS_LABELS = {
     "ready": "待办",
     "waiting": "等待依赖",
@@ -70,6 +80,113 @@ def require_site_identity(page: Path) -> list[str]:
             f"“{EXPECTED_SITE_IDENTITY}”，实际为“{actual}”"
         ]
     return []
+
+
+def parse_project_domain() -> tuple[list[list[str]], list[list[str]], list[str]]:
+    resources: list[list[str]] = []
+    services: list[list[str]] = []
+    errors: list[str] = []
+    if not PROJECTS_README.exists():
+        return resources, services, ["缺少项目域事实源：projects/README.md"]
+
+    section = ""
+    for lineno, line in enumerate(PROJECTS_README.read_text(encoding="utf-8").splitlines(), 1):
+        if line.startswith("## "):
+            section = line[3:].strip()
+            continue
+        if section not in {"外部资源", "服务定义"} or not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if not cells or cells[0] in {"名称", "服务"} or set(cells[0]) == {"-"}:
+            continue
+        expected_width = 5 if section == "外部资源" else 8
+        if len(cells) != expected_width:
+            errors.append(
+                f"projects/README.md:{lineno} 的{section}表格列数应为 "
+                f"{expected_width}，实际为 {len(cells)}"
+            )
+            continue
+        (resources if section == "外部资源" else services).append(cells)
+
+    return resources, services, errors
+
+
+def validate_project_domain(
+    dashboard_soup: BeautifulSoup,
+    resources: list[list[str]],
+    services: list[list[str]],
+) -> list[str]:
+    errors: list[str] = []
+    section = dashboard_soup.select_one("#project-domain")
+    if section is None:
+        return ["projects/room/dashboard.html 缺少项目域区域"]
+
+    resource_table = section.select_one(":scope > .table-wrap > table")
+    service_section = dashboard_soup.select_one("#project-domain + section.section")
+    service_table = (
+        service_section.select_one(":scope > .table-wrap > table")
+        if service_section is not None
+        else None
+    )
+    if resource_table is None or service_table is None:
+        return ["projects/room/dashboard.html 应保持独立的资源表和服务表"]
+
+    resource_rows = resource_table.select("tbody > tr")
+    actual_resource_names = [
+        row.select_one(":scope > td").get_text(" ", strip=True)
+        for row in resource_rows
+    ]
+    expected_resource_names = [row[0] for row in resources]
+    if actual_resource_names != expected_resource_names:
+        errors.append(
+            "dashboard 外部资源与 projects/README.md 不一致："
+            f"dashboard={actual_resource_names}，README={expected_resource_names}"
+        )
+
+    for dashboard_row, source_row in zip(resource_rows, resources):
+        cells = dashboard_row.select(":scope > td")
+        actual_summary = cells[1].get_text(" ", strip=True) if len(cells) > 1 else ""
+        expected_summary = f"{source_row[3]} {source_row[4]}".strip()
+        if actual_summary != expected_summary:
+            errors.append(f"dashboard 外部资源 {source_row[0]} 的简介与 README 不一致")
+
+    counter = section.select_one(":scope > .section-head > span")
+    counter_text = counter.get_text(" ", strip=True) if counter is not None else ""
+    if counter_text != f"{len(resources)} 项":
+        errors.append(
+            f"dashboard 外部资源计数错误："
+            f"dashboard={counter_text}，README={len(resources)} 项"
+        )
+
+    service_rows = service_table.select("tbody > tr")
+    actual_service_names = [
+        row.select_one(":scope > td").get_text(" ", strip=True)
+        for row in service_rows
+    ]
+    expected_service_names = [row[0] for row in services]
+    if actual_service_names != expected_service_names:
+        errors.append(
+            "dashboard 服务清单与 projects/README.md 不一致："
+            f"dashboard={actual_service_names}，README={expected_service_names}"
+        )
+
+    service_counter = service_section.select_one(":scope > .section-head > span")
+    service_counter_text = (
+        service_counter.get_text(" ", strip=True) if service_counter is not None else ""
+    )
+    if service_counter_text != f"{len(services)} 项":
+        errors.append(
+            f"dashboard 服务计数错误："
+            f"dashboard={service_counter_text}，README={len(services)} 项"
+        )
+
+    for dashboard_row, source_row in zip(service_rows, services):
+        cells = [cell.get_text(" ", strip=True) for cell in dashboard_row.select(":scope > td")]
+        expected = [source_row[0], source_row[2], source_row[3], source_row[5].strip("`")]
+        if cells != expected:
+            errors.append(f"dashboard 服务 {source_row[0]} 的展示数据与 README 不一致")
+
+    return errors
 
 
 def parse_todo_index() -> tuple[dict[str, dict[str, object]], dict[str, list[str]], list[str]]:
@@ -170,6 +287,35 @@ def item_identity(node: object) -> tuple[str, str] | None:
         if epic_match:
             return "epic", epic_match.group("slug")
     return None
+
+
+def displayed_todo_count(node: object) -> int | None:
+    """Read the EPIC member count shown beside its title."""
+    summary = node.select_one(".work-title + small")
+    if summary is None:
+        return None
+    match = re.fullmatch(r"(\d+) 个 TODO", summary.get_text(" ", strip=True))
+    return int(match.group(1)) if match is not None else None
+
+
+def segment_status_counts(epic_row: object) -> tuple[Counter[str], list[str]]:
+    """Read the status totals encoded by an EPIC's segmented bar."""
+    counts: Counter[str] = Counter()
+    errors: list[str] = []
+    for segment in epic_row.select(
+        ":scope > td[colspan] > details > summary .segments > .seg"
+    ):
+        statuses = [
+            name.removeprefix("seg-")
+            for name in segment.get("class", [])
+            if name.startswith("seg-")
+        ]
+        flex = re.search(r"(?:^|;)\s*flex:\s*(\d+)\s*(?:;|$)", segment.get("style", ""))
+        if len(statuses) != 1 or flex is None:
+            errors.append("存在无法识别状态或数量的色条分段")
+            continue
+        counts[statuses[0]] += int(flex.group(1))
+    return counts, errors
 
 
 def validate_room_data(
@@ -284,6 +430,33 @@ def validate_room_data(
                 f"Room={actual_members}，账本={expected_members}"
             )
 
+        shown_count = displayed_todo_count(row)
+        if shown_count != len(child_rows):
+            errors.append(
+                f"Room EPIC {slug} 的 TODO 总数错误："
+                f"摘要={shown_count}，实际子项={len(child_rows)}"
+            )
+
+        child_status_counts = Counter(child.get("data-status", "") for child in child_rows)
+        segment_counts, segment_errors = segment_status_counts(row)
+        for message in segment_errors:
+            errors.append(f"Room EPIC {slug} {message}")
+        if segment_counts != child_status_counts:
+            errors.append(
+                f"Room EPIC {slug} 的色条聚合错误："
+                f"色条={dict(segment_counts)}，实际子项={dict(child_status_counts)}"
+            )
+
+        expected_epic_status = next(
+            (status for status in EPIC_STATUS_PRECEDENCE if child_status_counts[status]),
+            None,
+        )
+        if epic_status != expected_epic_status:
+            errors.append(
+                f"Room EPIC {slug} 的顶层状态错误："
+                f"顶层={epic_status}，按子项应为={expected_epic_status}"
+            )
+
     missing_epics = sorted(expected_epics.keys() - actual_epics.keys())
     extra_epics = sorted(actual_epics.keys() - expected_epics.keys())
     if missing_epics:
@@ -303,6 +476,8 @@ def validate_room_data(
         if identity in open_items:
             errors.append(f"todo.html 开放列表重复事项：{identity}")
         open_items[identity] = row.get("data-status", "")
+        if row.get("data-status") == "hold":
+            errors.append(f"todo.html 当前事项主容器混入搁置事项：{identity}")
 
     board_items: dict[tuple[str, str], str] = {}
     for card in todo_soup.select("#board-view article.board-card"):
@@ -313,6 +488,14 @@ def validate_room_data(
         if identity in board_items:
             errors.append(f"todo.html 看板重复事项：{identity}")
         board_items[identity] = card.get("data-status", "")
+        if identity[0] == "epic":
+            expected_count = len(expected_epics.get(identity[1], []))
+            shown_count = displayed_todo_count(card)
+            if shown_count != expected_count:
+                errors.append(
+                    f"todo.html 看板 EPIC {identity[1]} 的 TODO 总数错误："
+                    f"摘要={shown_count}，账本={expected_count}"
+                )
 
     if open_items != board_items:
         errors.append(
@@ -338,7 +521,6 @@ def validate_room_data(
             "进行中": "progress",
             "待办": "ready",
             "等待依赖": "waiting",
-            "搁置": "hold",
         }.get(heading_label)
         if expected_column_status is None:
             errors.append(f"todo.html 看板存在未知列：{heading_label or '?'}")
@@ -382,15 +564,20 @@ def validate_room_data(
         elif badge_text in {"已完成", "已废弃"}:
             errors.append(f"未结束 TODO #{todo_id} 的 Room 详情页显示为“{badge_text}”")
 
+    hold_rows = todo_soup.select(
+        "main.page > details.closed-section[data-status-group='hold'] "
+        "> .table-wrap > table.work-table > tbody > tr"
+    )
     metric = dashboard_soup.select_one(".metric-grid > .metric[href='todo.html']")
     if metric is None or metric.select_one("strong") is None:
         errors.append("projects/room/dashboard.html 缺少开放事项指标")
     else:
         value = metric.select_one("strong").get_text(strip=True)
-        if not value.isdigit() or int(value) != len(open_rows):
+        expected_open_count = len(open_rows) + len(hold_rows)
+        if not value.isdigit() or int(value) != expected_open_count:
             errors.append(
                 "dashboard 开放事项指标与 todo.html 不一致："
-                f"dashboard={value}，事项页={len(open_rows)}"
+                f"dashboard={value}，事项页={expected_open_count}"
             )
         summary = metric.select_one("small")
         summary_match = re.fullmatch(
@@ -410,11 +597,12 @@ def validate_room_data(
                     f"dashboard EPIC 总数错误：dashboard={epic_count}，账本={len(epics)}"
                 )
 
-    for status in ("completed", "abandoned"):
+    for status in ("hold", "completed", "abandoned"):
         section = todo_soup.select_one(
             f"main.page > details.closed-section[data-status-group='{status}']"
         )
         if section is None:
+            errors.append(f"todo.html 缺少 {status} 独立顶层分区")
             continue
         rows = section.select(":scope > .table-wrap > table.work-table > tbody > tr")
         misplaced = [
@@ -442,6 +630,8 @@ def main() -> int:
     errors: list[str] = []
     records, epics, ledger_errors = parse_todo_index()
     errors.extend(ledger_errors)
+    resources, services, project_errors = parse_project_domain()
+    errors.extend(project_errors)
     for name in ("room.css", "room.js"):
         baseline = BASELINE / name
         runtime = RUNTIME / name
@@ -468,6 +658,7 @@ def main() -> int:
             errors.append(
                 "projects/room/dashboard.html 的最新 TODO 必须保持三张卡片"
             )
+        errors.extend(validate_project_domain(dashboard_soup, resources, services))
 
     errors.extend(
         require(
@@ -552,7 +743,7 @@ def main() -> int:
     print(
         "Room UI 门禁通过：CSS / JS 与版本化基线一致，"
         f"5 个主页面、{len(detail_pages)} 个 TODO 详情页结构有效；"
-        "TODO 账本、Room 事项与 dashboard 指标一致。"
+        "TODO 账本、Room 事项、项目域与 dashboard 数据一致。"
     )
     return 0
 
